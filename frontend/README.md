@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SixLabs
 
-## Getting Started
+> Digital Agency Startup — Website & Backend Platform
 
-First, run the development server:
+## 🚀 Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**SixLabs** adalah startup digital agency berisi 6 orang yang menyediakan jasa:
+
+- 🌐 **Web Application Development**
+- 📱 **Mobile Application Development**
+- 🏢 **Company Profile Website**
+- 🎯 **Landing Page Development**
+- 🔍 **SEO Optimization**
+
+---
+
+## 📁 Repository Structure
+
+Repo ini menggunakan **monorepo** dengan 2 folder utama:
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+web-sixlabs/
+├── 📁 frontend/          # Next.js 14 — Website UI/UX (Static Export)
+│   ├── app/
+│   │   ├── styles/       # CSS global (variables, animations, utilities)
+│   │   ├── layout.js     # Root layout + SEO metadata
+│   │   ├── page.js       # Landing page (all sections)
+│   │   ├── loading.js    # Loading state
+│   │   ├── not-found.js  # 404 page
+│   │   └── error.js      # Error boundary
+│   │
+│   ├── components/
+│   │   ├── navbar/       # Navbar + ThemeToggle + MobileMenu ✅
+│   │   ├── footer/       # Footer + FooterLinks ⬜ Stage 6
+│   │   ├── ui/           # Button, Card, Container, Badge, SectionHeading ✅
+│   │   └── buttons/      # CTAButton, WhatsAppButton ⬜ Stage 6
+│   │
+│   ├── sections/         # Hero, Services, Portfolio, Contact, FAQ ✅ Stage 5
+│   ├── hooks/            # useDarkMode, useScrollPosition, useMediaQuery ✅
+│   ├── lib/              # Utils (cn, debounce) + Formatters ✅
+│   ├── constants/        # Navigation, Services, Portfolio, FAQ, Contact data ✅
+│   ├── public/           # Images, icons, favicon
+│   └── package.json
+│
+├── 📁 backend/           # API Server (Coming Soon — Stage 8)
+│   └── (coming soon)
+│
+├── 📄 README.md          # Dokumentasi ini
+└── 📄 .gitignore         # Git ignore rules (root + subfolder)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Teknologi             | Versi           | Purpose                                |
+| --------------------- | --------------- | -------------------------------------- |
+| Next.js               | 14 (App Router) | Framework                              |
+| React                 | 18              | UI Library                             |
+| Tailwind CSS          | 3.4             | Styling                                |
+| CSS Modules           | Native          | Scoped styles per component            |
+| Framer Motion         | Latest          | Advanced Component & Reveal Animations |
+| Lucide React          | Latest          | Icons                                  |
+| clsx + tailwind-merge | Latest          | Class merging                          |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> **Note:** Animasi dasar menggunakan kombinasi CSS Transitions untuk komponen UI mikro, sedangkan **Framer Motion** dioptimalkan secara modular pada area interaktif khusus seperti _reveal animation_ pada section dan transisi _smooth accordion_ pada FAQ (KISS Principle tetap terjaga).
 
-## Deploy on Vercel
+### Backend (Coming Soon — Stage 8)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Teknologi          | Status |
+| ------------------ | ------ |
+| Firebase Functions | 🔜     |
+| Firestore          | 🔜     |
+| Google Sheets API  | 🔜     |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🚀 Quick Start
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+
+```
+
+Buka [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
+
+### Build Production (Static Export)
+
+```bash
+cd frontend
+npm run build
+
+```
+
+Output akan ada di folder `dist/` (konfigurasi static export untuk Render.com).
+
+---
+
+## 📦 Deployment
+
+| Service  | Platform              | Type                | Status |
+| -------- | --------------------- | ------------------- | ------ |
+| Frontend | Render.com            | Static Site         | 🔜     |
+| Backend  | Render.com            | Web Service (512MB) | 🔜     |
+| Database | Firebase Spark (Free) | 🔜                  |        |
+
+---
+
+## 📋 Development Stages
+
+| Stage       | Status             | Deskripsi                                                        |
+| ----------- | ------------------ | ---------------------------------------------------------------- |
+| **Stage 1** | ✅ **Complete**    | Config, CSS Variables, Layout, Utilities                         |
+| **Stage 2** | ✅ **Complete**    | Komponen Dasar (Button, Card, Container, Badge, SectionHeading)  |
+| **Stage 3** | ✅ **Complete**    | Data & Hooks (constants + custom hooks)                          |
+| **Stage 4** | ✅ **Complete**    | Navbar (Navbar, MobileMenu, ThemeToggle)                         |
+| **Stage 5** | ✅ **Complete**    | Sections (Hero, Services, Portfolio, Contact, FAQ) + Integration |
+| **Stage 6** | 🔄 **In Progress** | Footer & Page Assembly                                           |
+| **Stage 7** | ⬜                 | Polish, Error Pages & Deploy Config                              |
+| **Stage 8** | ⬜                 | Backend Integration                                              |
+
+---
+
+## 🎨 Design System
+
+- **Light Mode:** Clean white `#FAFAFA` + soft gray `#E2E8F0` + blue accent `#2563EB`
+- **Dark Mode:** Dark navy `#0F172A` + slate `#1E293B` + blue accent `#60A5FA`
+- **Font:** Inter (Google Fonts via next/font)
+- **Animation Strategy:**
+- **Sections Reveal:** Framer Motion (`motion.div` dengan viewport triggers tunggal)
+- **FAQ Accordion:** Framer Motion `AnimatePresence` untuk transisi tinggi dinamis yang mulus
+- **UI Primitives:** CSS Transitions murni (hover & focus states)
+
+- **Icons:** Lucide React
+- **Dark Mode Strategy:** `class` toggle via `document.documentElement`
+- **Responsive:** Mobile-first (sm:640px, md:768px, lg:1024px)
+
+---
+
+## 🏗️ Architecture Decisions
+
+### CSS & Animation Strategy
+
+| File / Library  | Purpose                                                              |
+| --------------- | -------------------------------------------------------------------- |
+| `globals.css`   | Tailwind directives + base styles                                    |
+| `variables.css` | CSS variables light/dark mode                                        |
+| `*.module.css`  | Scoped styles per component/section untuk layouting                  |
+| `Framer Motion` | Handling interpolasi tinggi dinamis (FAQ) dan _fade/slide on scroll_ |
+
+---
+
+## 👥 Team
+
+SixLabs — 6 Founders, 1 Vision.
+
+---
+
+## 📝 License
+
+Private internal project — SixLabs.
