@@ -1,0 +1,71 @@
+/* ============================================
+   SixLabs — Buttons CSS Module
+   ============================================ */
+
+/* ── CTA Button ── */
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background var(--transition),
+    box-shadow var(--transition),
+    transform 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.ctaBtn:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-accent);
+}
+
+.ctaBtn:active {
+  transform: scale(0.97);
+}
+
+.ctaBtn__icon {
+  transition: transform var(--transition);
+}
+
+.ctaBtn:hover .ctaBtn__icon {
+  transform: translateX(3px);
+}
+
+/* ── WhatsApp Button ── */
+.waBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #25d366;
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background var(--transition),
+    box-shadow var(--transition),
+    transform 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.waBtn:hover {
+  background: #1da851;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+}
+
+.waBtn:active {
+  transform: scale(0.97);
+}

@@ -1,0 +1,98 @@
+/* ============================================
+   SixLabs — CSS Variables
+   Light & Dark Mode Theme System
+   ============================================ */
+
+:root {
+  /* ── Fonts ── */
+  --font-heading: "Syne", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  /* ── Brand Colors ── */
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+
+  /* ── Light Mode (default) ── */
+  --bg-page: #f0f4ff;
+  --bg-surface: #ffffff;
+  --bg-surface-2: #f5f7ff;
+  --bg-nav: rgba(255, 255, 255, 0.85);
+  --bg-nav-border: rgba(59, 130, 246, 0.12);
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5f7ff;
+  --bg-badge: #dbeafe;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-badge: #1d4ed8;
+  --text-accent: #2563eb;
+  --text-on-accent: #ffffff;
+
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-card: rgba(15, 23, 42, 0.08);
+  --border-input: rgba(15, 23, 42, 0.14);
+
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #dbeafe;
+  --accent-glow: rgba(37, 99, 235, 0.15);
+
+  --shadow-sm:
+    0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md:
+    0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.05);
+  --shadow-lg:
+    0 12px 40px rgba(15, 23, 42, 0.1), 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-accent: 0 4px 20px rgba(37, 99, 235, 0.25);
+
+  --nav-backdrop: blur(16px) saturate(1.8);
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}
+
+[data-theme="dark"] {
+  /* ── Dark Mode ── */
+  --bg-page: #0d1117;
+  --bg-surface: #161b22;
+  --bg-surface-2: #1c2128;
+  --bg-nav: rgba(13, 17, 23, 0.85);
+  --bg-nav-border: rgba(59, 130, 246, 0.15);
+  --bg-card: #161b22;
+  --bg-card-hover: #1c2128;
+  --bg-badge: rgba(59, 130, 246, 0.15);
+
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  --text-badge: #60a5fa;
+  --text-accent: #3b82f6;
+  --text-on-accent: #ffffff;
+
+  --border-color: rgba(240, 246, 252, 0.07);
+  --border-card: rgba(240, 246, 252, 0.07);
+  --border-input: rgba(240, 246, 252, 0.12);
+
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-light: rgba(59, 130, 246, 0.15);
+  --accent-glow: rgba(59, 130, 246, 0.2);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-accent: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
