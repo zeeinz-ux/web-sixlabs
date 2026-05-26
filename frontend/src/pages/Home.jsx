@@ -1,9 +1,16 @@
-import React from 'react';
-import styles from './css/Home.module.css';
+import React from "react";
+import styles from "./css/Home.module.css";
 import { ArrowRight, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { scrollToSection } from "@/lib/utils";
 import { Container } from "@/components/ui/Ui.buttons.jsx";
+
+// === TAMBAHKAN IMPORT SEKSI LAIN DI SINI ===
+// Karena file ini ada di dalam folder 'pages', kita panggil file di folder yang sama pakai './'
+import { ServicesSection } from "./Services.jsx";
+import { ContactSection } from "./Contact.jsx";
+import { PortfolioSection } from "./Portfolio.jsx";
+import { FAQSection } from "./Faq.jsx";
 
 const HERO = {
   badge: "🚀 Digital Agency dari Indonesia",
@@ -109,7 +116,7 @@ function HeroIllustration() {
           <polyline points="16 18 22 12 16 6" />
           <polyline points="8 6 2 12 8 18" />
         </svg>
-        Next.js + React Native
+        React + Vite, Node.js, Tailwind CSS
       </motion.div>
 
       {/* Reviews chip */}
@@ -241,10 +248,15 @@ function HeroSection() {
   );
 }
 
+// === REVISI KOMPONEN UTAMA ===
 function Home() {
   return (
     <div className={styles.homePage}>
       <HeroSection />
+      <ServicesSection />
+      <PortfolioSection />
+      <FAQSection />
+      <ContactSection />
     </div>
   );
 }

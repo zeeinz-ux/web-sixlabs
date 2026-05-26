@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
@@ -35,7 +35,7 @@ const FAQ = [
     id: 5,
     question: "Teknologi apa yang digunakan?",
     answer:
-      "Kami menggunakan tech stack modern: Next.js & React untuk frontend, Node.js / Firebase untuk backend, React Native untuk mobile, dan berbagai tools pendukung seperti Tailwind CSS, Prisma, Supabase, dan lainnya sesuai kebutuhan project.",
+      "Kami menggunakan tech stack modern:  React + vite untuk frontend, Node.js / Firebase untuk backend, React Native untuk mobile, dan berbagai tools pendukung seperti Tailwind CSS, Prisma, Supabase, dan lainnya sesuai kebutuhan project.",
   },
   {
     id: 6,

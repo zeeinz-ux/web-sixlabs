@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { motion } from "framer-motion";
 import {
@@ -10,7 +10,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Container, SectionHeading } from "@/components/ui/Ui.buttons.jsx";
-import styles from './css/Services.module.css';
+import styles from "./css/Services.module.css";
 
 const SERVICES = [
   {
@@ -20,7 +20,7 @@ const SERVICES = [
     description:
       "Kami membangun web app modern yang scalable, cepat, dan siap production — dari MVP hingga platform enterprise.",
     features: [
-      "React / Next.js",
+      "React + Vite",
       "REST & GraphQL API",
       "Responsive UI",
       "Performance Optimized",

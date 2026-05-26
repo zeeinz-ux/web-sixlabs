@@ -1,0 +1,20 @@
+/* 1. Baris wajib untuk mengaktifkan fungsi Tailwind CSS v3 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. Jika kamu menggunakan Google Fonts (contoh: Plus Jakarta Sans atau Inter),
+      kamu bisa import di paling atas seperti ini. Atau sesuaikan dengan font-mu */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+/* 3. Masukkan ke CSS Variable sesuai yang diminta tailwind.config.js */
+:root {
+  /* 2. DAFTARKAN FONT UNTUK HOME.MODULE.CSS */
+  --font-heading: "Plus Jakarta Sans", sans-serif; /* Font untuk headline */
+  --font-body: "Plus Jakarta Sans", sans-serif; /* Font untuk teks biasa */
+
+  --font-inter: "Plus Jakarta Sans", sans-serif;
+  --accent: #3b82f6;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+}

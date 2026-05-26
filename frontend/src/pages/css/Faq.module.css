@@ -3,53 +3,58 @@
 }
 
 .list {
-  max-width: 820px;
-  margin: 3.5rem auto 0;
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-lg);
-  background: var(--bg-card);
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .item {
-  border-bottom: 1px solid var(--border-card);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
-.item:last-child {
-  border-bottom: 0;
+.itemOpen {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
 }
 
 .question {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding: 1.5rem 1.75rem;
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-primary);
-  text-align: left;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  transition: background var(--transition);
+  transition: color var(--transition);
 }
 
 .question:hover {
-  background: var(--bg-card-hover);
+  color: var(--accent);
 }
 
 .chevron {
   flex-shrink: 0;
-  color: var(--text-secondary);
-  transition: transform var(--transition);
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
 }
 
 .chevronOpen {
   transform: rotate(180deg);
-  color: var(--brand);
+  color: var(--accent);
 }
 
 .answerWrap {
@@ -57,19 +62,8 @@
 }
 
 .answer {
-  font-size: 0.925rem;
-  line-height: 1.8;
+  padding: 0 24px 20px;
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  padding: 0 1.75rem 1.75rem;
-}
-
-@media (max-width: 580px) {
-  .question {
-    padding: 1.2rem 1.3rem;
-    font-size: 1rem;
-  }
-  .answer {
-    font-size: 0.9rem;
-    padding: 0 1.3rem 1.3rem;
-  }
+  line-height: 1.75;
 }

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,7 +13,7 @@ const PORTFOLIO = [
     category: "Web Application",
     description:
       "Platform e-commerce modern dengan sistem pembayaran terintegrasi dan dashboard admin real-time.",
-    tech: ["Next.js", "Stripe", "Prisma"],
+    tech: ["React + Vite", "Stripe", "Prisma"],
     image: "/images/portfolio/project-1.jpg",
     color: "#3b82f6",
     link: "#",
@@ -35,7 +35,7 @@ const PORTFOLIO = [
     category: "Company Profile",
     description:
       "Website company profile untuk firma konsultan profesional dengan desain corporate premium.",
-    tech: ["Next.js", "Tailwind", "Sanity CMS"],
+    tech: ["React + Vite", "Tailwind", "Sanity CMS"],
     image: "/images/portfolio/project-3.jpg",
     color: "#06b6d4",
     link: "#",
@@ -46,7 +46,7 @@ const PORTFOLIO = [
     category: "Landing Page",
     description:
       "Landing page high-conversion untuk startup SaaS dengan animasi modern dan A/B testing built-in.",
-    tech: ["Next.js", "Framer Motion", "Analytics"],
+    tech: ["React + Vite", "Framer Motion", "Analytics"],
     image: "/images/portfolio/project-4.jpg",
     color: "#10b981",
     link: "#",
@@ -57,7 +57,7 @@ const PORTFOLIO = [
     category: "Web Application",
     description:
       "Platform edukasi online dengan fitur video streaming, quiz interaktif, dan sertifikasi digital.",
-    tech: ["Next.js", "Supabase", "WebRTC"],
+    tech: ["React + Vite", "Supabase", "WebRTC"],
     image: "/images/portfolio/project-5.jpg",
     color: "#f59e0b",
     link: "#",
