@@ -147,6 +147,56 @@
   color: var(--accent);
 }
 
+/* ── Select Dropdown Fix ── */
+select.input {
+  cursor: pointer;
+  /* Custom arrow icon agar konsisten di semua browser */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 44px;
+}
+
+/* CRITICAL FIX: option background & color agar terlihat di dark mode */
+select.input option {
+  background: var(--bg-input, #ffffff);
+  color: var(--text-primary, #111827);
+  font-size: 0.9rem;
+  padding: 8px 12px;
+}
+
+/* Selected / highlighted option */
+select.input option:checked {
+  background: var(--accent, #6366f1);
+  color: #ffffff;
+}
+
+select.input option:hover {
+  background: var(--accent-light, rgba(99, 102, 241, 0.1));
+  color: var(--accent, #6366f1);
+}
+
+/* Focus open state */
+select.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* Dark mode override via global data-theme */
+:global([data-theme="dark"]) select.input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+:global([data-theme="dark"]) select.input option {
+  background: var(--bg-input, #1e1e2e);
+  color: var(--text-primary, #cdd6f4);
+}
+
+:global([data-theme="dark"]) select.input option:checked {
+  background: var(--accent, #89b4fa);
+  color: #1e1e2e;
+}
+
 /* ── Info ── */
 .info {
   display: flex;

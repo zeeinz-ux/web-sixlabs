@@ -1,0 +1,142 @@
+/* ─────────────────────────────────────────
+   ChatWidget Styles — SixLabs
+   Z-Index System | Scroll Lock | 180-250ms Animations
+   ───────────────────────────────────────── */
+
+/* ══ Z-Index Layer System ══
+   Pastikan konsisten dengan elemen lain di project:
+   --z-navbar:      100
+   --z-mobile-menu: 200
+   --z-modal:       300
+   --z-toast:       400
+   --z-chatbot:     500   ← chatbot layer
+*/
+
+.widgetContainer {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: var(--z-chatbot, 500);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  font-family: inherit;
+}
+
+/* ── Scroll Lock Mobile ──
+   Class ini ditoggle via JS saat chatbot terbuka.
+   Nanti dipindahkan ke useChatbot.js / ChatbotContext. */
+:global(.bodyScrollLock) {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* ── Toggle Button ── */
+.toggleBtn {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary, #6366f1);
+  color: var(--bg, #ffffff);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.15),
+    0 0 0 0 var(--primary-soft, rgba(99, 102, 241, 0.3));
+  transition:
+    transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 180ms ease,
+    background 180ms ease;
+  position: relative;
+}
+
+.toggleBtn:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.2),
+    0 0 0 4px var(--primary-soft, rgba(99, 102, 241, 0.2));
+}
+
+.toggleBtn:active {
+  transform: scale(0.95);
+}
+
+.toggleActive {
+  background: var(--danger, #ef4444);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.15),
+    0 0 0 0 var(--danger-soft, rgba(239, 68, 68, 0.3));
+}
+
+.toggleActive:hover {
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.2),
+    0 0 0 4px var(--danger-soft, rgba(239, 68, 68, 0.2));
+}
+
+.toggleIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms ease;
+}
+
+.toggleActive .toggleIcon {
+  transform: rotate(90deg);
+}
+
+/* ── Window Wrapper ── */
+.windowWrapper {
+  transform-origin: bottom right;
+  opacity: 0;
+  transform: scale(0.9) translateY(12px);
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.windowOpen {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* ── Responsive Mobile ── */
+@media (max-width: 640px) {
+  .widgetContainer {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .toggleBtn {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .windowWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 1rem;
+    transform-origin: center bottom;
+  }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .toggleBtn,
+  .toggleIcon,
+  .windowWrapper {
+    transition: none;
+  }
+}

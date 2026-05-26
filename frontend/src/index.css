@@ -1,11 +1,9 @@
-/* 1. Baris wajib untuk mengaktifkan fungsi Tailwind CSS v3 */
+/* index.css — BENAR */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* 1. Jika kamu menggunakan Google Fonts (contoh: Plus Jakarta Sans atau Inter),
-      kamu bisa import di paling atas seperti ini. Atau sesuaikan dengan font-mu */
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 /* 3. Masukkan ke CSS Variable sesuai yang diminta tailwind.config.js */
 :root {
