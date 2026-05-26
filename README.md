@@ -6,9 +6,9 @@ Proyek ini awalnya adalah aplikasi Next.js yang telah dimigrasikan ke pengaturan
 
 ## ✨ Fitur
 
-*   **Sangat Cepat:** Dibangun dengan Vite untuk waktu mulai server yang hampir instan dan Hot Module Replacement (HMR).
-*   **Desain Responsif:** Tata letak yang sepenuhnya responsif menggunakan Tailwind CSS, memastikan pengalaman yang hebat di semua perangkat.
-*   **Tumpukan Modern:** Memanfaatkan React untuk membangun antarmuka pengguna yang dinamis dan interaktif.
+- **Sangat Cepat:** Dibangun dengan Vite untuk waktu mulai server yang hampir instan dan Hot Module Replacement (HMR).
+- **Desain Responsif:** Tata letak yang sepenuhnya responsif menggunakan Tailwind CSS, memastikan pengalaman yang hebat di semua perangkat.
+- **Tumpukan Modern:** Memanfaatkan React untuk membangun antarmuka pengguna yang dinamis dan interaktif.
 
 ## 🚀 Memulai
 
@@ -16,23 +16,26 @@ Ikuti petunjuk ini untuk mendapatkan salinan proyek dan menjalankannya di mesin 
 
 ### Prasyarat
 
-*   Node.js (v18.x atau yang lebih baru direkomendasikan)
-*   npm atau yarn
+- Node.js (v18.x atau yang lebih baru direkomendasikan)
+- npm atau yarn
 
 ### Instalasi & Menjalankan
 
 1.  **Gandakan (clone) repositori ini:**
+
     ```bash
     git clone https://github.com/zeeinz-ux/test-code.git
     cd test-code
     ```
 
 2.  **Masuk ke direktori `frontend`:**
+
     ```bash
     cd frontend
     ```
 
 3.  **Instal semua dependensi:**
+
     ```bash
     npm install
     ```
@@ -49,7 +52,7 @@ Aplikasi akan tersedia di `http://localhost:5173` (atau port berikutnya yang ter
 Berikut adalah gambaran umum struktur file dan folder dalam proyek ini:
 
 ```
-/test-code
+/web-sixlabs
 ├── frontend/
 │   ├── public/
 │   │   └── sixlabs.svg            # Ikon atau aset publik
@@ -72,6 +75,6 @@ Berikut adalah gambaran umum struktur file dan folder dalam proyek ini:
 
 ## 🛠️ Dibangun Dengan
 
-*   [Vite](https://vitejs.dev/) - Perkakas front-end generasi berikutnya.
-*   [React](https://reactjs.org/) - Pustaka JavaScript untuk membangun antarmuka pengguna.
-*   [Tailwind CSS](https://tailwindcss.com/) - Kerangka kerja CSS yang mengutamakan utilitas.
+- [Vite](https://vitejs.dev/) - Perkakas front-end generasi berikutnya.
+- [React](https://reactjs.org/) - Pustaka JavaScript untuk membangun antarmuka pengguna.
+- [Tailwind CSS](https://tailwindcss.com/) - Kerangka kerja CSS yang mengutamakan utilitas.
