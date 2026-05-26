@@ -32,9 +32,9 @@ web-sixlabs/
 │   │
 │   ├── components/
 │   │   ├── navbar/       # Navbar + ThemeToggle + MobileMenu ✅
-│   │   ├── footer/       # Footer + FooterLinks ⬜ Stage 6
+│   │   ├── footer/       # Footer + FooterLinks ✅ Stage 6
 │   │   ├── ui/           # Button, Card, Container, Badge, SectionHeading ✅
-│   │   └── buttons/      # CTAButton, WhatsAppButton ⬜ Stage 6
+│   │   └── buttons/      # CTAButton, WhatsAppButton ✅ Stage 6
 │   │
 │   ├── sections/         # Hero, Services, Portfolio, Contact, FAQ ✅ Stage 5
 │   ├── hooks/            # useDarkMode, useScrollPosition, useMediaQuery ✅
