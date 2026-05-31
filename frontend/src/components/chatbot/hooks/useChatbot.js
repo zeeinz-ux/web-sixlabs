@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { sendChatMessage } from "@/lib/chatbot.js";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 /* ─────────────────────────────────────────
    Message Data Shape (Konsisten untuk backend):
@@ -12,14 +13,16 @@ import { useState, useCallback, useRef, useEffect } from 'react';
    }
    ───────────────────────────────────────── */
 
-const generateId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+const generateId = () =>
+  `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 
 const INITIAL_MESSAGE = {
   id: generateId(),
-  role: 'assistant',
-  content: 'Halo! 👋 Saya asisten AI SixLabs. Ada yang bisa saya bantu terkait layanan kami?',
+  role: "assistant",
+  content:
+    "Halo! 👋 Saya asisten AI SixLabs. Ada yang bisa saya bantu terkait layanan kami?",
   createdAt: new Date().toISOString(),
-  status: 'sent',
+  status: "sent",
 };
 
 export const useChatbot = () => {
@@ -29,16 +32,17 @@ export const useChatbot = () => {
 
   const messagesContainerRef = useRef(null);
   const shouldAutoScrollRef = useRef(true);
+  const sessionIdRef = useRef(generateId());
 
   /* ── Body Scroll Lock (Mobile) ── */
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add('bodyScrollLock');
+      document.body.classList.add("bodyScrollLock");
     } else {
-      document.body.classList.remove('bodyScrollLock');
+      document.body.classList.remove("bodyScrollLock");
     }
     return () => {
-      document.body.classList.remove('bodyScrollLock');
+      document.body.classList.remove("bodyScrollLock");
     };
   }, [isOpen]);
 
@@ -58,7 +62,7 @@ export const useChatbot = () => {
     shouldAutoScrollRef.current = checkNearBottom();
   }, [checkNearBottom]);
 
-  const scrollToBottom = useCallback((behavior = 'smooth') => {
+  const scrollToBottom = useCallback((behavior = "smooth") => {
     const el = messagesContainerRef.current;
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior });
@@ -66,7 +70,7 @@ export const useChatbot = () => {
 
   useEffect(() => {
     if (shouldAutoScrollRef.current) {
-      scrollToBottom('smooth');
+      scrollToBottom("smooth");
     }
   }, [messages, scrollToBottom]);
 
@@ -84,24 +88,23 @@ export const useChatbot = () => {
     setMessages([
       {
         id: generateId(),
-        role: 'assistant',
-        content: 'Chat telah dibersihkan. Ada yang bisa saya bantu?',
+        role: "assistant",
+        content: "Chat telah dibersihkan. Ada yang bisa saya bantu?",
         createdAt: new Date().toISOString(),
-        status: 'sent',
+        status: "sent",
       },
     ]);
     shouldAutoScrollRef.current = true;
-    setTimeout(() => scrollToBottom('auto'), 50);
+    setTimeout(() => scrollToBottom("auto"), 50);
   }, [scrollToBottom]);
 
-  /* ── Send Message (Mock — belum backend) ──
-     Implementasi optimistic UI:
+  /* ── Send Message (with networking layer) ──
+     Optimistic UI flow:
      1. Message user muncul langsung dengan status "sending"
-     2. Simulasi delay network / AI thinking
+     2. Delegate ke lib/chatbot.js (mock or real backend)
      3. Update status user ke "sent"
      4. Push assistant response dengan status "sent"
-
-     Nanti akan diganti dengan fetch ke backend API. */
+     5. Kalau error: update user message ke "error" */
   const sendMessage = useCallback(
     async (content) => {
       const trimmed = content.trim();
@@ -110,37 +113,57 @@ export const useChatbot = () => {
       // Optimistic user message
       const userMsg = {
         id: generateId(),
-        role: 'user',
+        role: "user",
         content: trimmed,
         createdAt: new Date().toISOString(),
-        status: 'sending',
+        status: "sending",
       };
 
       setMessages((prev) => [...prev, userMsg]);
       setIsLoading(true);
       shouldAutoScrollRef.current = true;
 
-      // Simulasi network delay (1.2–2.0s)
-      await new Promise((resolve) => setTimeout(resolve, 1200 + Math.random() * 800));
+      try {
+        // Delegate ke networking layer
+        const response = await sendChatMessage({
+          sessionId: sessionIdRef.current,
+          message: userMsg,
+          history: messages
+            .filter((m) => m.status === "sent" && m.role !== "system")
+            .map((m) => ({ role: m.role, content: m.content })),
+        });
 
-      // Update user message status → sent
-      setMessages((prev) =>
-        prev.map((m) => (m.id === userMsg.id ? { ...m, status: 'sent' } : m))
-      );
+        // Update user message status → sent
+        setMessages((prev) =>
+          prev.map((m) => (m.id === userMsg.id ? { ...m, status: "sent" } : m)),
+        );
 
-      // Mock assistant response
-      const botMsg = {
-        id: generateId(),
-        role: 'assistant',
-        content: `Terima kasih atas pesan Anda. SixLabs AI sedang dalam mode simulasi.\n\nPesan Anda: "${trimmed}"\n\nIntegrasi backend AI provider akan ditambahkan di tahap berikutnya.`,
-        createdAt: new Date().toISOString(),
-        status: 'sent',
-      };
+        // Assistant response dari networking layer
+        const botMsg = {
+          id: response.data.id,
+          role: response.data.role,
+          content: response.data.content,
+          createdAt: response.data.createdAt,
+          provider: response.data.provider,
+          status: "sent",
+        };
 
-      setMessages((prev) => [...prev, botMsg]);
-      setIsLoading(false);
+        setMessages((prev) => [...prev, botMsg]);
+      } catch (error) {
+        // Error sudah dalam bentuk ChatError (normalized)
+        console.error("[useChatbot] sendMessage error:", error);
+
+        // Update user message status → error
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === userMsg.id ? { ...m, status: "error" } : m,
+          ),
+        );
+      } finally {
+        setIsLoading(false);
+      }
     },
-    [isLoading]
+    [isLoading, messages],
   );
 
   return {

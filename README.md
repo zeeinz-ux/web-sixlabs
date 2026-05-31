@@ -40,7 +40,7 @@ Menggunakan:
 
 ---
 
-## 🤖 AI Chatbot Integration *(In Progress — UI & State Done)*
+## 🤖 AI Chatbot Integration *(Frontend Done — Backend Tahap 1 Done)*
 
 SixLabs memiliki chatbot AI dengan sistem fallback multi-provider untuk menjaga stabilitas layanan AI.
 
@@ -58,8 +58,9 @@ SixLabs memiliki chatbot AI dengan sistem fallback multi-provider untuk menjaga 
 |---|---|---|
 | UI Components | ✅ Done | `ChatWidget`, `ChatWindow`, `ChatInput`, `MessageBubble` |
 | State Management | ✅ Done | `useChatbot.js` + `ChatbotContext.jsx` |
+| Networking Abstraction | ✅ Done | `lib/chatbot.js` (mock mode + retry + error normalization) |
 | Styling | ✅ Done | CSS Modules + Global CSS Variables |
-| API Integration | ⏳ Pending | Menunggu backend layer |
+| API Integration | ⏳ Pending | Menunggu backend chat endpoint (Tahap 3) |
 | AI Provider Abstraction | ⏳ Pending | Menunggu backend layer |
 | Firestore Logging | ⏳ Pending | Menunggu backend layer |
 
@@ -90,6 +91,7 @@ Semua message object mengikuti shape konsisten untuk future backend integration:
 - **Optimistic UI** — message muncul langsung dengan status "sending"
 - **Clear Chat** — reset conversation ke welcome message
 - **Z-Index Layering** — chatbot layer 500, konsisten dengan elemen lain
+- **Hybrid Mock Mode** — template response + echo fallback untuk demo tanpa backend
 
 ---
 
@@ -97,7 +99,7 @@ Semua message object mengikuti shape konsisten untuk future backend integration:
 
 Project dirancang agar tetap optimal menggunakan layanan free tier:
 
-- Firebase Firestore
+- Firebase Firestore (Spark Plan)
 - Firebase Hosting
 - GitHub Actions
 - Google Sheets Integration
@@ -138,11 +140,13 @@ dapat langsung disinkronkan ke Google Sheets untuk kebutuhan operasional tim.
 - CSS Modules (styling utama)
 - Tailwind CSS (utility tambahan)
 
-## Backend *(Coming Soon)*
+## Backend *(Tahap 1 — Foundational Layer Done)*
 
 - Node.js
-- TypeScript
-- Express.js / Firebase Functions
+- TypeScript (strict mode)
+- Express.js
+- Zod (schema validation)
+- CORS
 
 ## Database & Services *(Coming Soon)*
 
@@ -218,6 +222,13 @@ Semua komponen chatbot consume global CSS variables:
 - **React Context + Custom Hooks** untuk state chatbot yang cukup kompleks
 - **Props drilling minimal** karena semua chatbot sub-components consume `ChatbotContext`
 
+## Networking Abstraction Layer
+
+- **Frontend tidak boleh langsung call AI provider** — semua lewat backend proxy
+- **API key tidak di-expose ke frontend** — aman di backend environment
+- **Mock mode default** — kalau `VITE_API_URL` kosong, otomatis fallback ke mock
+- **Request/Response contract konsisten** — `{ success, data, meta }` / `{ success, error, meta }`
+
 ---
 
 # 📁 Struktur Folder Project
@@ -249,6 +260,7 @@ Semua komponen chatbot consume global CSS variables:
 │   │   │   ├── navbar/
 │   │   │   └── ui/
 │   │   ├── lib/
+│   │   │   └── chatbot.js          ← NEW: Networking abstraction layer
 │   │   ├── sections/
 │   │   ├── App.jsx
 │   │   ├── main.jsx
@@ -258,23 +270,21 @@ Semua komponen chatbot consume global CSS variables:
 │   ├── vite.config.js
 │   └── tailwind.config.js
 │
-├── backend/                    # ⏳ Coming Soon
+├── backend/                        # ✅ Tahap 1 Done
 │   ├── src/
 │   │   ├── config/
+│   │   │   └── env.ts              ← Zod env validation
 │   │   ├── controllers/
-│   │   ├── middleware/
+│   │   │   └── health.controller.ts
 │   │   ├── routes/
-│   │   ├── schemas/
-│   │   ├── services/
-│   │   │   ├── ai/
-│   │   │   ├── firestore/
-│   │   │   └── sheets/
-│   │   ├── utils/
-│   │   ├── app.ts
-│   │   └── server.ts
+│   │   │   └── health.routes.ts
+│   │   ├── app.ts                  ← Express + middleware
+│   │   └── server.ts               ← Entry point
+│   ├── .env
+│   ├── .env.example
 │   ├── package.json
 │   ├── tsconfig.json
-│   └── .env.example
+│   └── nodemon.json
 │
 ├── .github/
 │   └── workflows/
@@ -327,7 +337,7 @@ http://localhost:5173
 
 ---
 
-# ⚙️ Menjalankan Backend *(Coming Soon)*
+# ⚙️ Menjalankan Backend *(Tahap 1 — Foundational Layer)*
 
 ## Masuk ke folder backend
 
@@ -339,6 +349,12 @@ cd backend
 
 ```bash
 npm install
+```
+
+## Setup environment
+
+```bash
+cp .env.example .env
 ```
 
 ## Jalankan backend server
@@ -353,6 +369,30 @@ Backend API akan berjalan di:
 http://localhost:5000
 ```
 
+## Cek health endpoint
+
+```bash
+curl http://localhost:5000/api/v1/health
+```
+
+Expected response:
+```json
+{
+  "success": true,
+  "data": {
+    "status": "ok",
+    "service": "sixlabs-backend",
+    "uptime": 1.234,
+    "timestamp": "2026-05-26T15:31:00.000Z",
+    "environment": "development",
+    "version": "1.0.0"
+  },
+  "meta": {
+    "timestamp": "2026-05-26T15:31:00.000Z"
+  }
+}
+```
+
 ---
 
 # 🔐 Environment Variables
@@ -360,24 +400,36 @@ http://localhost:5000
 ## Frontend
 
 ```env
-VITE_API_URL=
+VITE_API_URL=                    # Kosong = auto mock mode
+VITE_CHATBOT_MOCK_MODE=true      # Paksa mock mode (optional)
 VITE_FIREBASE_API_KEY=
 ```
 
----
-
-## Backend *(Coming Soon)*
+## Backend
 
 ```env
-GEMINI_API_KEY=
-GROQ_API_KEY=
-HF_API_KEY=
-MISTRAL_API_KEY=
-COHERE_API_KEY=
+# Server (Required)
+PORT=5000
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
 
-FIREBASE_PROJECT_ID=
-GOOGLE_SHEETS_ID=
-JWT_SECRET=
+# AI Provider API Keys (Tahap 3 — AI Integration)
+# GEMINI_API_KEY=
+# GROQ_API_KEY=
+# HF_API_KEY=
+# MISTRAL_API_KEY=
+# COHERE_API_KEY=
+
+# Firebase (Tahap 5 — Firestore Logging)
+# FIREBASE_PROJECT_ID=
+# FIREBASE_CLIENT_EMAIL=
+# FIREBASE_PRIVATE_KEY=
+
+# Google Sheets (Tahap 6 — Sheets Sync)
+# GOOGLE_SHEETS_ID=
+
+# Security (Tahap 4 — Authentication)
+# JWT_SECRET=
 ```
 
 ---
@@ -395,7 +447,9 @@ SixLabs merupakan startup digital agency yang beranggotakan 6 orang developer de
 - [x] Dark Mode
 - [x] Chatbot UI Layer (Widget, Window, Input, Bubble)
 - [x] Chatbot State Management (Context + Hooks)
-- [ ] Chatbot Backend API Integration
+- [x] Chatbot Networking Abstraction (lib/chatbot.js)
+- [x] Backend Foundational Layer (Express + TypeScript + Health Check)
+- [ ] Chatbot Backend API Integration (POST /api/v1/chat)
 - [ ] AI Provider Abstraction (Gemini, Groq, HF, Mistral, Cohere)
 - [ ] Firestore Chat Logging
 - [ ] AI Analytics

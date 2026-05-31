@@ -1,0 +1,39 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Environment variables (Sangat penting agar API key/password tidak bocor)
+.env
+.env.production
+.env.local
+.env.*.local
+
+# TypeScript / Build outputs
+dist/
+build/
+out/
+tsbuildinfo/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Optional: IDX metadata jika tidak ingin dicommit
+.idx/
