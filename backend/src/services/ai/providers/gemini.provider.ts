@@ -1,10 +1,10 @@
 import { env } from "../../../config/env";
-import {
+import type {
   AIProvider,
   AIRequestParams,
   AIResponse,
   AIProviderError,
-}  from "../types.js";
+} from "../../types";
 
 const GEMINI_API_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-latest:generateContent";
@@ -43,7 +43,7 @@ export class GeminiProvider implements AIProvider {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        const errorData: any = await response.json().catch(() => ({}));
         const code = this.mapHttpStatus(response.status);
         throw this.createError(
           code,
@@ -52,7 +52,7 @@ export class GeminiProvider implements AIProvider {
         );
       }
 
-      const data = await response.json();
+      const data: any = await response.json();
       const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
       if (!content) {
@@ -70,7 +70,9 @@ export class GeminiProvider implements AIProvider {
     } catch (err) {
       clearTimeout(timeoutId);
 
-      if (err instanceof Error && err.name === "AbortError") {
+      const error = err as any;
+
+      if (error instanceof Error && error.name === "AbortError") {
         throw this.createError(
           "TIMEOUT",
           "Gemini request timed out after 15s",
@@ -78,13 +80,13 @@ export class GeminiProvider implements AIProvider {
         );
       }
 
-      if (this.isProviderError(err)) {
-        throw err;
+      if (this.isProviderError(error)) {
+        throw error;
       }
 
       throw this.createError(
         "UNKNOWN",
-        err instanceof Error ? err.message : "Unknown Gemini error",
+        error instanceof Error ? error.message : "Unknown Gemini error",
         true,
       );
     }

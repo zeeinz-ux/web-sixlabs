@@ -40,58 +40,60 @@ Menggunakan:
 
 ---
 
-## 🤖 AI Chatbot Integration *(Frontend Done — Backend Tahap 1 Done)*
+## 🤖 AI Chatbot Integration
 
 SixLabs memiliki chatbot AI dengan sistem fallback multi-provider untuk menjaga stabilitas layanan AI.
 
-### Urutan AI Fallback (Backend — Coming Soon)
+### Urutan AI Fallback (Backend)
 
 1. Gemini 2.5 Flash
-2. Groq Llama 3.3 70B
-3. Hugging Face Inference API
-4. Mistral AI
-5. Cohere Command R+
+2. Groq Llama 3.3 70B _(Coming Soon)_
+3. Hugging Face Inference API _(Coming Soon)_
+4. Mistral AI _(Coming Soon)_
+5. Cohere Command R+ _(Coming Soon)_
+6. Mock Fallback _(Safety Net)_
 
-### Chatbot Architecture (Frontend — Implemented)
+### Chatbot Architecture
 
-| Layer | Status | File |
-|---|---|---|
-| UI Components | ✅ Done | `ChatWidget`, `ChatWindow`, `ChatInput`, `MessageBubble` |
-| State Management | ✅ Done | `useChatbot.js` + `ChatbotContext.jsx` |
-| Networking Abstraction | ✅ Done | `lib/chatbot.js` (mock mode + retry + error normalization) |
-| Styling | ✅ Done | CSS Modules + Global CSS Variables |
-| API Integration | ⏳ Pending | Menunggu backend chat endpoint (Tahap 3) |
-| AI Provider Abstraction | ⏳ Pending | Menunggu backend layer |
-| Firestore Logging | ⏳ Pending | Menunggu backend layer |
+| Layer                   | Status     | File                                                       |
+| ----------------------- | ---------- | ---------------------------------------------------------- |
+| UI Components           | ✅ Done    | `ChatWidget`, `ChatWindow`, `ChatInput`, `MessageBubble`   |
+| State Management        | ✅ Done    | `useChatbot.js` + `ChatbotContext.jsx`                     |
+| Networking Abstraction  | ✅ Done    | `lib/chatbot.js` (mock mode + retry + error normalization) |
+| Styling                 | ✅ Done    | CSS Modules + Global CSS Variables                         |
+| API Integration         | ✅ Done    | `POST /api/v1/chat`                                        |
+| AI Provider Abstraction | 🔄 Batch 1 | Gemini 2.5 Flash + aiRouter + aiFallback + Mock            |
+| Firestore Logging       | ⏳ Pending | Menunggu Tahap 5                                           |
+| Google Sheets Sync      | ⏳ Pending | Menunggu Tahap 6                                           |
 
 ### Message Data Shape
 
-Semua message object mengikuti shape konsisten untuk future backend integration:
+Semua message object mengikuti shape konsisten:
 
 ```js
 {
-  id: string,              // UUID generated client-side
+  id: string,
   role: "user" | "assistant" | "system",
   content: string,
-  createdAt: string,         // ISO 8601
-  provider?: string,        // AI provider name (optional, backend nanti)
+  createdAt: string,
+  provider?: string,
   status?: "sending" | "sent" | "error"
 }
 ```
 
 ### Chatbot UX Features
 
-- **Floating Widget** dengan toggle animation (180–250ms)
-- **Fullscreen Mobile** saat viewport < 640px
-- **Body Scroll Lock** saat chatbot terbuka di mobile
-- **Auto-scroll** ke latest message (dengan user scroll detection)
-- **Typing Indicator** controlled via state
-- **Enter-to-Send** (Shift+Enter untuk newline)
-- **Textarea Auto-resize**
-- **Optimistic UI** — message muncul langsung dengan status "sending"
-- **Clear Chat** — reset conversation ke welcome message
-- **Z-Index Layering** — chatbot layer 500, konsisten dengan elemen lain
-- **Hybrid Mock Mode** — template response + echo fallback untuk demo tanpa backend
+- Floating Widget dengan toggle animation (180–250ms)
+- Fullscreen Mobile saat viewport < 640px
+- Body Scroll Lock saat chatbot terbuka di mobile
+- Auto-scroll ke latest message (dengan user scroll detection)
+- Typing Indicator controlled via state
+- Enter-to-Send (Shift+Enter untuk newline)
+- Textarea Auto-resize
+- Optimistic UI — message muncul langsung dengan status `"sending"`
+- Clear Chat — reset conversation ke welcome message
+- Z-Index Layering — chatbot layer 500, konsisten dengan elemen lain
+- Hybrid Mock Mode — template response + echo fallback untuk demo tanpa backend
 
 ---
 
@@ -140,7 +142,7 @@ dapat langsung disinkronkan ke Google Sheets untuk kebutuhan operasional tim.
 - CSS Modules (styling utama)
 - Tailwind CSS (utility tambahan)
 
-## Backend *(Tahap 1 — Foundational Layer Done)*
+## Backend
 
 - Node.js
 - TypeScript (strict mode)
@@ -148,19 +150,19 @@ dapat langsung disinkronkan ke Google Sheets untuk kebutuhan operasional tim.
 - Zod (schema validation)
 - CORS
 
-## Database & Services *(Coming Soon)*
+## Database & Services
 
 - Firebase Firestore
 - Firebase Hosting
 - Google Sheets API
 
-## AI Providers *(Backend Integration — Coming Soon)*
+## AI Providers
 
-- Gemini API
-- Groq API
-- Hugging Face API
-- Mistral API
-- Cohere API
+- Gemini API (2.5 Flash) ✅
+- Groq API (Coming Soon)
+- Hugging Face API (Coming Soon)
+- Mistral API (Coming Soon)
+- Cohere API (Coming Soon)
 
 ---
 
@@ -218,16 +220,39 @@ Semua komponen chatbot consume global CSS variables:
 
 ## State Management Strategy
 
-- **Tidak menggunakan Redux/Zustand** di tahap awal untuk menghindari overengineering
-- **React Context + Custom Hooks** untuk state chatbot yang cukup kompleks
-- **Props drilling minimal** karena semua chatbot sub-components consume `ChatbotContext`
+- Tidak menggunakan Redux/Zustand di tahap awal untuk menghindari overengineering
+- React Context + Custom Hooks untuk state chatbot yang cukup kompleks
+- Props drilling minimal karena semua chatbot sub-components consume `ChatbotContext`
 
 ## Networking Abstraction Layer
 
-- **Frontend tidak boleh langsung call AI provider** — semua lewat backend proxy
-- **API key tidak di-expose ke frontend** — aman di backend environment
-- **Mock mode default** — kalau `VITE_API_URL` kosong, otomatis fallback ke mock
-- **Request/Response contract konsisten** — `{ success, data, meta }` / `{ success, error, meta }`
+- Frontend tidak boleh langsung call AI provider — semua lewat backend proxy
+- API key tidak di-expose ke frontend — aman di backend environment
+- Mock mode default — kalau `VITE_API_URL` kosong, otomatis fallback ke mock
+- Request/Response contract konsisten — `{ success, data, meta }` / `{ success, error, meta }`
+
+## AI Provider Architecture
+
+```text
+chat.controller.ts
+  └── aiRouter.service.ts
+        └── aiFallback.service.ts
+              ├── gemini.provider.ts (Gemini 2.5 Flash)
+              ├── [Future] groq.provider.ts
+              ├── [Future] huggingface.provider.ts
+              ├── [Future] mistral.provider.ts
+              ├── [Future] cohere.provider.ts
+              └── mockFallback.provider.ts (Safety Net)
+```
+
+Principles:
+
+- Controller tidak coupling langsung ke provider
+- Provider interface universal (generateReply)
+- Mock fallback tetap dipertahankan sebagai safety net
+- Env keys optional — provider auto-activates kalau key tersedia
+- Timeout per provider: 15000ms
+- Provider error tidak di-expose ke frontend
 
 ---
 
@@ -260,7 +285,7 @@ Semua komponen chatbot consume global CSS variables:
 │   │   │   ├── navbar/
 │   │   │   └── ui/
 │   │   ├── lib/
-│   │   │   └── chatbot.js          ← NEW: Networking abstraction layer
+│   │   │   └── chatbot.js
 │   │   ├── sections/
 │   │   ├── App.jsx
 │   │   ├── main.jsx
@@ -270,16 +295,27 @@ Semua komponen chatbot consume global CSS variables:
 │   ├── vite.config.js
 │   └── tailwind.config.js
 │
-├── backend/                        # ✅ Tahap 1 Done
+├── backend/
 │   ├── src/
 │   │   ├── config/
-│   │   │   └── env.ts              ← Zod env validation
+│   │   │   └── env.ts
 │   │   ├── controllers/
+│   │   │   ├── chat.controller.ts
 │   │   │   └── health.controller.ts
 │   │   ├── routes/
+│   │   │   ├── chat.routes.ts
 │   │   │   └── health.routes.ts
-│   │   ├── app.ts                  ← Express + middleware
-│   │   └── server.ts               ← Entry point
+│   │   ├── schemas/
+│   │   │   └── chat.schema.ts
+│   │   ├── services/
+│   │   │   └── ai/
+│   │   │       ├── types.ts
+│   │   │       ├── aiRouter.service.ts
+│   │   │       ├── aiFallback.service.ts
+│   │   │       └── providers/
+│   │   │           └── gemini.provider.ts
+│   │   ├── app.ts
+│   │   └── server.ts
 │   ├── .env
 │   ├── .env.example
 │   ├── package.json
@@ -337,7 +373,7 @@ http://localhost:5173
 
 ---
 
-# ⚙️ Menjalankan Backend *(Tahap 1 — Foundational Layer)*
+# ⚙️ Menjalankan Backend
 
 ## Masuk ke folder backend
 
@@ -369,13 +405,14 @@ Backend API akan berjalan di:
 http://localhost:5000
 ```
 
-## Cek health endpoint
+## Cek Health Endpoint
 
 ```bash
 curl http://localhost:5000/api/v1/health
 ```
 
 Expected response:
+
 ```json
 {
   "success": true,
@@ -413,23 +450,26 @@ PORT=5000
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
 
-# AI Provider API Keys (Tahap 3 — AI Integration)
-# GEMINI_API_KEY=
-# GROQ_API_KEY=
-# HF_API_KEY=
-# MISTRAL_API_KEY=
-# COHERE_API_KEY=
+# Chat Fallback Mode (Tahap 3–4)
+CHAT_MOCK_MODE=template          # template | echo
+
+# AI Provider API Keys (Tahap 4 — optional, auto-activates provider)
+GEMINI_API_KEY=                  # Gemini 2.5 Flash
+GROQ_API_KEY=                    # Coming Soon
+HF_API_KEY=                      # Coming Soon
+MISTRAL_API_KEY=                 # Coming Soon
+COHERE_API_KEY=                  # Coming Soon
 
 # Firebase (Tahap 5 — Firestore Logging)
-# FIREBASE_PROJECT_ID=
-# FIREBASE_CLIENT_EMAIL=
-# FIREBASE_PRIVATE_KEY=
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
 
 # Google Sheets (Tahap 6 — Sheets Sync)
-# GOOGLE_SHEETS_ID=
+GOOGLE_SHEETS_ID=
 
-# Security (Tahap 4 — Authentication)
-# JWT_SECRET=
+# Security (Tahap 7 — Auth & Rate Limiting)
+JWT_SECRET=
 ```
 
 ---
@@ -449,9 +489,19 @@ SixLabs merupakan startup digital agency yang beranggotakan 6 orang developer de
 - [x] Chatbot State Management (Context + Hooks)
 - [x] Chatbot Networking Abstraction (lib/chatbot.js)
 - [x] Backend Foundational Layer (Express + TypeScript + Health Check)
-- [ ] Chatbot Backend API Integration (POST /api/v1/chat)
-- [ ] AI Provider Abstraction (Gemini, Groq, HF, Mistral, Cohere)
+- [x] Backend Chat Endpoint (POST /api/v1/chat + Zod Validation)
+- [x] AI Provider Interface & Types
+- [x] AI Router Service (aiRouter.service.ts)
+- [x] AI Fallback Service (aiFallback.service.ts)
+- [x] Gemini 2.5 Flash Provider Integration
+- [ ] Groq Provider Integration
+- [ ] Hugging Face Provider Integration
+- [ ] Mistral Provider Integration
+- [ ] Cohere Provider Integration
+- [ ] Provider Health Scoring & Dynamic Routing
 - [ ] Firestore Chat Logging
+- [ ] Google Sheets Sync
+- [ ] Auth & Rate Limiting
 - [ ] AI Analytics
 
 ---
