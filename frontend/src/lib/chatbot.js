@@ -19,8 +19,8 @@ const ENV = {
 
 /* ── Runtime Config (mutable for testing/debug) ── */
 let _runtimeConfig = {
-  timeoutMs: 10_000,
-  maxRetries: 3,
+  timeoutMs: 15_000,
+  maxRetries: 2,
   backoffMs: 1_000,
   mockMode: ENV.MOCK_MODE || !ENV.API_URL,
   apiUrl: ENV.API_URL,
@@ -40,7 +40,6 @@ export function createChatSession() {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
     return crypto.randomUUID();
   }
-  // Fallback untuk environment tanpa crypto.randomUUID
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
@@ -53,8 +52,15 @@ export async function sendChatMessage(payload) {
     return _mockHandler(payload);
   }
 
-  // Real backend mode
-  const url = `${config.apiUrl}/api/chat`;
+  // Real backend mode — FIX: endpoint jadi /api/v1/chat
+  const url = `${config.apiUrl}/api/v1/chat`;
+
+  // FIX: Transform payload ke shape backend yang benar
+  const backendPayload = {
+    message: payload.message?.content || payload.message,
+    sessionId: payload.sessionId,
+    history: payload.history || [],
+  };
 
   const execute = async () => {
     const response = await _fetchWithTimeout(
@@ -64,7 +70,7 @@ export async function sendChatMessage(payload) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(backendPayload),
       },
       config.timeoutMs,
     );
@@ -117,19 +123,16 @@ async function _retryWithBackoff(fn, maxRetries, backoffMs) {
     } catch (error) {
       lastError = error;
 
-      // Cek apakah error retryable
       const normalized = _normalizeError(error);
       if (!normalized.error.isRetryable || attempt >= maxRetries) {
         break;
       }
 
-      // Exponential backoff: 1s, 2s, 4s
       const delay = backoffMs * Math.pow(2, attempt);
       await _sleep(delay);
     }
   }
 
-  // Max retries exceeded
   const finalError = _normalizeError(lastError);
   if (finalError.error.code !== "MAX_RETRIES_EXCEEDED") {
     finalError.error.code = "MAX_RETRIES_EXCEEDED";
@@ -142,7 +145,6 @@ async function _retryWithBackoff(fn, maxRetries, backoffMs) {
 
 /* ── Internal: Normalize Response ── */
 function _normalizeResponse(raw) {
-  // Kalau backend sudah return shape yang benar
   if (raw?.success === true && raw?.data) {
     return {
       success: true,
@@ -161,7 +163,6 @@ function _normalizeResponse(raw) {
     };
   }
 
-  // Fallback: kalau backend return flat object
   return {
     success: true,
     data: {
@@ -181,7 +182,6 @@ function _normalizeResponse(raw) {
 
 /* ── Internal: Normalize Error ── */
 function _normalizeError(error, statusCode) {
-  // Kalau sudah ChatError shape
   if (error?.success === false && error?.error) {
     return error;
   }
@@ -236,7 +236,6 @@ function _isRetryable(code, statusCode) {
   return false;
 }
 
-/* ── Internal: Safe Parse Error Response ── */
 async function _safeParseError(response) {
   try {
     return await response.json();
@@ -249,7 +248,6 @@ async function _safeParseError(response) {
   }
 }
 
-/* ── Internal: Sleep Helper ── */
 function _sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -304,7 +302,6 @@ function _mockHandler(payload) {
   const userContent = payload?.message?.content || "";
   const startTime = performance.now();
 
-  // Simulated latency: 800ms – 2000ms (feels natural)
   const delay = 800 + Math.random() * 1200;
 
   return new Promise((resolve) => {

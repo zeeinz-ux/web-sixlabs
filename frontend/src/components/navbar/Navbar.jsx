@@ -1,24 +1,25 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Menu } from 'lucide-react';
-import { scrollToSection } from '../../lib/utils';
-import { useScrollPosition } from '../../hooks/useScrollPosition';
-import { ThemeToggle } from './ThemeToggle';
-import { MobileMenu } from './MobileMenu';
-import styles from './navbar.module.css';
+import { useState } from "react";
+import { Menu } from "lucide-react";
+import { scrollToSection } from "../../lib/utils";
+import { useScrollPosition } from "../../hooks/useScrollPosition";
+import { ThemeToggle } from "./ThemeToggle";
+import { MobileMenu } from "./MobileMenu";
+import styles from "./navbar.module.css";
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#services' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Contact', href: '#contact' },
-  { label: 'FAQ', href: '#faq' },
+  { label: "Home", href: "#home" },
+  { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Contact", href: "#contact" },
+  { label: "About Us", href: "#about" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 const NAV_CTA = {
-  label: 'Get in Touch',
-  href: '#contact',
+  label: "Get in Touch",
+  href: "#contact",
 };
 
 export function Navbar() {
@@ -30,7 +31,7 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`${styles.header} ${isScrolled ? styles['header--scrolled'] : ''}`}
+        className={`${styles.header} ${isScrolled ? styles["header--scrolled"] : ""}`}
       >
         <nav className={styles.nav} aria-label="Main navigation">
           {/* Logo */}
@@ -39,7 +40,7 @@ export function Navbar() {
             className={styles.logo}
             onClick={(e) => {
               e.preventDefault();
-              scrollToSection('#home');
+              scrollToSection("#home");
             }}
           >
             <span className={styles.logo__dot} aria-hidden="true" />

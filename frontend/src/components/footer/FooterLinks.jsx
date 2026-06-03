@@ -1,16 +1,17 @@
-'use client';
+"use client";
 
-import { SITE } from '../../lib/constants';
-import { buildWhatsAppLink, scrollToSection } from '../../lib/utils';
-import styles from './footer.module.css';
+import { SITE } from "../../lib/constants";
+import { buildWhatsAppLink, scrollToSection } from "../../lib/utils";
+import styles from "./footer.module.css";
 
 // Inlined navigation links to fix build error
 const NAV_LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#portfolio', label: 'Portfolio' },
-  { href: '#process', label: 'Process' },
-  { href: '#testimonials', label: 'Testimonials' },
-  { href: '#faq', label: 'FAQ' },
+  { label: "Home", href: "#home" },
+  { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Contact", href: "#contact" },
+  { label: "About Us", href: "#about" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export function FooterLinks() {
@@ -21,15 +22,15 @@ export function FooterLinks() {
         <h4 className={styles.colTitle}>Services</h4>
         <ul className={styles.colList}>
           {[
-            'Web Application',
-            'Mobile Application',
-            'Company Profile',
-            'Landing Page',
-            'SEO Optimization',
+            "Web Application",
+            "Mobile Application",
+            "Company Profile",
+            "Landing Page",
+            "SEO Optimization",
           ].map((s) => (
             <li key={s}>
               <button
-                onClick={() => scrollToSection('#services')}
+                onClick={() => scrollToSection("#services")}
                 className={styles.colLink}
               >
                 {s}

@@ -36,4 +36,4 @@ pnpm-debug.log*
 Thumbs.db
 
 # Optional: IDX metadata jika tidak ingin dicommit
-.idx/
+.idx/gi

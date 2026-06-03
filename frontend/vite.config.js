@@ -2,10 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/web-sixlabs/", // 👈 WAJIB TAMBAH BARIS INI (sesuai nama repository-mu)
+  base: process.env.NODE_ENV === "production" ? "/web-sixlabs/" : "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

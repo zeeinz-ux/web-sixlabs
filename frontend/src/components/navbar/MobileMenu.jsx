@@ -1,31 +1,32 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { X } from 'lucide-react';
-import { scrollToSection } from '../../lib/utils';
-import styles from './navbar.module.css';
+import { useEffect } from "react";
+import { X } from "lucide-react";
+import { scrollToSection } from "../../lib/utils";
+import styles from "./navbar.module.css";
 
 // Inlined navigation links to fix build error
 const NAV_LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#portfolio', label: 'Portfolio' },
-  { href: '#process', label: 'Process' },
-  { href: '#testimonials', label: 'Testimonials' },
-  { href: '#faq', label: 'FAQ' },
+  { label: "Home", href: "#home" },
+  { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Contact", href: "#contact" },
+  { label: "About Us", href: "#about" },
+  { label: "FAQ", href: "#faq" },
 ];
 
-const NAV_CTA = { href: '#contact', label: 'Hubungi Kami' };
+const NAV_CTA = { href: "#contact", label: "Hubungi Kami" };
 
 export function MobileMenu({ isOpen, onClose }) {
   // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 

@@ -7,7 +7,7 @@
    ============================================ */
 
 .hero {
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   padding-top: 7rem;
@@ -380,17 +380,31 @@
 
 @media (max-width: 480px) {
   .illustration {
-    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 25px;
+    height: auto;
+    min-height: unset;
   }
+
+  .hero {
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 0;
+  }
+
+  .chip__tech,
+  .chip__delivery,
+  .chip__review,
   .card__main {
-    width: 230px;
+    position: static;
+    transform: none;
+    margin: 0;
   }
-  .chip__tech {
-    font-size: 0.7rem;
-    padding: 0.4rem 0.6rem;
-  }
-  .chip__delivery {
-    font-size: 0.7rem;
-    padding: 0.4rem 0.6rem;
+
+  .card__main {
+    margin-bottom: 8px;
   }
 }

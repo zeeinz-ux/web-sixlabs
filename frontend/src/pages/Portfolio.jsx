@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+// 1. Tambahkan forwardRef di impor dari "react"
+import { useState, forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { Container, SectionHeading } from "@/components/ui/Ui.buttons.jsx";
@@ -84,9 +85,11 @@ const PORTFOLIO_CATEGORIES = [
   "SEO Optimization",
 ];
 
-function PortfolioCard({ item, index }) {
+// 2. Bungkus PortfolioCard dengan forwardRef
+const PortfolioCard = forwardRef(({ item, index }, ref) => {
   return (
     <motion.div
+      ref={ref} // 3. Pasang ref yang diterima ke motion.div terluar
       className={styles.card}
       layout
       initial={{ opacity: 0, scale: 0.95 }}
@@ -141,7 +144,10 @@ function PortfolioCard({ item, index }) {
       </div>
     </motion.div>
   );
-}
+});
+
+// 4. Beri nama komponen agar mempermudah debugging di React DevTools
+PortfolioCard.displayName = "PortfolioCard";
 
 export function PortfolioSection() {
   const [active, setActive] = useState("All");

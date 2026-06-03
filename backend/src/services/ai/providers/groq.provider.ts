@@ -7,42 +7,39 @@ import type {
   AIProviderError,
 } from "../../types";
 
-const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const GROQ_MODEL = "llama-3.3-70b-versatile";
 const TIMEOUT_MS = 15000;
 
-export class GeminiProvider implements AIProvider {
-  readonly name = "gemini";
+export class GroqProvider implements AIProvider {
+  readonly name = "groq";
 
   get isAvailable(): boolean {
-    return !!env.GEMINI_API_KEY;
+    return !!env.GROQ_API_KEY;
   }
 
   async generateReply(params: AIRequestParams): Promise<AIResponse> {
     if (!this.isAvailable) {
       throw this.createError(
         "NOT_AVAILABLE",
-        "Gemini API key not configured",
+        "Groq API key not configured",
         false,
       );
     }
-
-    console.log("Gemini available:", this.isAvailable);
-    console.log("Gemini key prefix:", env.GEMINI_API_KEY?.slice(0, 5));
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
     try {
-      const response = await fetch(
-        `${GEMINI_API_URL}?key=${env.GEMINI_API_KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(this.buildPayload(params)),
-          signal: controller.signal,
+      const response = await fetch(GROQ_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${env.GROQ_API_KEY}`,
         },
-      );
+        body: JSON.stringify(this.buildPayload(params)),
+        signal: controller.signal,
+      });
 
       clearTimeout(timeoutId);
 
@@ -51,18 +48,18 @@ export class GeminiProvider implements AIProvider {
         const code = this.mapHttpStatus(response.status);
         throw this.createError(
           code,
-          errorData?.error?.message || `Gemini API returned ${response.status}`,
+          errorData?.error?.message || `Groq API returned ${response.status}`,
           code === "RATE_LIMIT" || code === "TIMEOUT",
         );
       }
 
       const data: any = await response.json();
-      const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      const content = data?.choices?.[0]?.message?.content;
 
       if (!content) {
         throw this.createError(
           "EMPTY_RESPONSE",
-          "No content in Gemini response",
+          "No content in Groq response",
           false,
         );
       }
@@ -79,7 +76,7 @@ export class GeminiProvider implements AIProvider {
       if (error instanceof Error && error.name === "AbortError") {
         throw this.createError(
           "TIMEOUT",
-          "Gemini request timed out after 15s",
+          "Groq request timed out after 15s",
           true,
         );
       }
@@ -90,44 +87,39 @@ export class GeminiProvider implements AIProvider {
 
       throw this.createError(
         "UNKNOWN",
-        error instanceof Error ? error.message : "Unknown Gemini error",
+        error instanceof Error ? error.message : "Unknown Groq error",
         true,
       );
     }
   }
 
   private buildPayload(params: AIRequestParams): object {
-    const contents = [
+    const messages: Array<{ role: string; content: string }> = [
       {
-        role: "user",
-        parts: [
-          {
-            text: SIXLABS_SYSTEM_PROMPT,
-          },
-        ],
+        role: "system",
+        content: SIXLABS_SYSTEM_PROMPT,
       },
     ];
 
     if (params.history && params.history.length > 0) {
       for (const msg of params.history) {
-        contents.push({
-          role: msg.role === "assistant" ? "model" : "user",
-          parts: [{ text: msg.content }],
+        messages.push({
+          role: msg.role === "assistant" ? "assistant" : "user",
+          content: msg.content,
         });
       }
     }
 
-    contents.push({
+    messages.push({
       role: "user",
-      parts: [{ text: params.message }],
+      content: params.message,
     });
 
     return {
-      contents,
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 2048,
-      },
+      model: GROQ_MODEL,
+      messages,
+      temperature: 0.7,
+      max_tokens: 2048,
     };
   }
 

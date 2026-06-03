@@ -65,28 +65,11 @@
   transform: scale(0.95);
 }
 
-.toggleActive {
-  background: var(--danger, #ef4444);
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.15),
-    0 0 0 0 var(--danger-soft, rgba(239, 68, 68, 0.3));
-}
-
-.toggleActive:hover {
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.2),
-    0 0 0 4px var(--danger-soft, rgba(239, 68, 68, 0.2));
-}
-
 .toggleIcon {
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 200ms ease;
-}
-
-.toggleActive .toggleIcon {
-  transform: rotate(90deg);
 }
 
 /* ── Window Wrapper ── */

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { Send, Loader2, CheckCircle2, Mail, MapPin, Clock } from "lucide-react";
@@ -9,7 +9,7 @@ import styles from "./css/Contact.module.css";
 
 const CONTACT = {
   email: "sixlabs5023@gmail.com",
-  whatsapp: "+6281234567890",
+  whatsapp: "+62 852 8594 4423",
   whatsappDisplay: "+62 812 3456 7890",
   whatsappMessage:
     "Halo SixLabs! Saya tertarik untuk mendiskusikan project bersama kalian.",
@@ -97,7 +97,7 @@ function ContactForm() {
           name="name"
           value={form.name}
           onChange={handleChange}
-          placeholder="John Doe"
+          placeholder="Six Labs"
           className={`${styles.input} ${errors.name ? styles.inputError : ""}`}
         />
         {errors.name && <span className={styles.errorMsg}>{errors.name}</span>}
@@ -111,7 +111,7 @@ function ContactForm() {
           type="email"
           value={form.email}
           onChange={handleChange}
-          placeholder="john@example.com"
+          placeholder="sixlabs@example.com"
           className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
         />
         {errors.email && (
@@ -176,7 +176,6 @@ function ContactForm() {
   );
 }
 
-
 const INFO_ITEMS = [
   {
     icon: Mail,
@@ -237,8 +236,6 @@ function ContactInfo() {
     </div>
   );
 }
-
-
 
 export function ContactSection() {
   return (

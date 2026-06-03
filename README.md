@@ -48,10 +48,7 @@ SixLabs memiliki chatbot AI dengan sistem fallback multi-provider untuk menjaga 
 
 1. Gemini 2.5 Flash
 2. Groq Llama 3.3 70B _(Coming Soon)_
-3. Hugging Face Inference API _(Coming Soon)_
-4. Mistral AI _(Coming Soon)_
-5. Cohere Command R+ _(Coming Soon)_
-6. Mock Fallback _(Safety Net)_
+3. Mock Fallback _(Safety Net)_
 
 ### Chatbot Architecture
 
@@ -160,9 +157,6 @@ dapat langsung disinkronkan ke Google Sheets untuk kebutuhan operasional tim.
 
 - Gemini API (2.5 Flash) ✅
 - Groq API (Coming Soon)
-- Hugging Face API (Coming Soon)
-- Mistral API (Coming Soon)
-- Cohere API (Coming Soon)
 
 ---
 
@@ -238,10 +232,7 @@ chat.controller.ts
   └── aiRouter.service.ts
         └── aiFallback.service.ts
               ├── gemini.provider.ts (Gemini 2.5 Flash)
-              ├── [Future] groq.provider.ts
-              ├── [Future] huggingface.provider.ts
-              ├── [Future] mistral.provider.ts
-              ├── [Future] cohere.provider.ts
+              ├── groq.provider.ts (Groq Llama 3.3 70B)
               └── mockFallback.provider.ts (Safety Net)
 ```
 
@@ -456,9 +447,7 @@ CHAT_MOCK_MODE=template          # template | echo
 # AI Provider API Keys (Tahap 4 — optional, auto-activates provider)
 GEMINI_API_KEY=                  # Gemini 2.5 Flash
 GROQ_API_KEY=                    # Coming Soon
-HF_API_KEY=                      # Coming Soon
-MISTRAL_API_KEY=                 # Coming Soon
-COHERE_API_KEY=                  # Coming Soon
+
 
 # Firebase (Tahap 5 — Firestore Logging)
 FIREBASE_PROJECT_ID=
@@ -495,10 +484,6 @@ SixLabs merupakan startup digital agency yang beranggotakan 6 orang developer de
 - [x] AI Fallback Service (aiFallback.service.ts)
 - [x] Gemini 2.5 Flash Provider Integration
 - [ ] Groq Provider Integration
-- [ ] Hugging Face Provider Integration
-- [ ] Mistral Provider Integration
-- [ ] Cohere Provider Integration
-- [ ] Provider Health Scoring & Dynamic Routing
 - [ ] Firestore Chat Logging
 - [ ] Google Sheets Sync
 - [ ] Auth & Rate Limiting

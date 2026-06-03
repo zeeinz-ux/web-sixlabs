@@ -77,12 +77,15 @@
 
 .botBubble {
   background: var(--surface, #f3f4f6);
-  color: var(--text, #111827);
+  color: #1f2937;
   border-bottom-left-radius: 0.25rem;
 }
 
 .text {
+  color: inherit;
   margin: 0;
+  white-space: pre-wrap;
+  font-weight: 500;
 }
 
 /* ── Timestamp ── */
