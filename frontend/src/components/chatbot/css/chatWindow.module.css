@@ -195,7 +195,6 @@
   }
 }
 
-/* ── Responsive Mobile ── */
 @media (max-width: 640px) {
   .window {
     width: 100%;
@@ -203,6 +202,16 @@
     height: calc(100vh - 2rem);
     max-height: calc(100vh - 2rem);
     border-radius: 1rem;
+  }
+
+  .messagesArea {
+    padding: 0.5rem;                  /* lebih lega di mobile */
+    -webkit-overflow-scrolling: touch; /* smooth scroll di iOS/Android */
+  }
+
+  .typingBubble {
+    max-width: 90%;                    /* tidak melebihi layar */
+    word-wrap: break-word;             /* text wrap */
   }
 }
 
