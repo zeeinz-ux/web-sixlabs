@@ -10,6 +10,7 @@ import { Container } from "@/components/ui/Ui.buttons.jsx";
 import { ServicesSection } from "./Services.jsx";
 import { ContactSection } from "./Contact.jsx";
 import { PortfolioSection } from "./Portfolio.jsx";
+import { AboutSection } from "./About.jsx";
 import { FAQSection } from "./Faq.jsx";
 
 const HERO = {
@@ -255,6 +256,7 @@ function Home() {
       <HeroSection />
       <ServicesSection />
       <PortfolioSection />
+      <AboutSection />
       <FAQSection />
       <ContactSection />
     </div>

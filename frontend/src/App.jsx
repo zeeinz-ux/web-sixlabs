@@ -5,6 +5,7 @@ import Home from "./pages/Home.jsx";
 import { ServicesSection as Services } from "./pages/Services.jsx";
 import { ContactSection as Contact } from "./pages/Contact.jsx";
 import { PortfolioSection as Portfolio } from "./pages/Portfolio.jsx";
+import { AboutSection as About } from "./pages/About.jsx";
 import { FAQSection as Faq } from "./pages/Faq.jsx";
 
 /* ── Chatbot Integration ── */
@@ -28,6 +29,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/about" element={<About />} />
             <Route path="/faq" element={<Faq />} />
           </Routes>
         </main>

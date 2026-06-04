@@ -9,8 +9,7 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
-      {/* 🔴 CUKUP TAMBAHKAN basename DI BARIS INI 🔴 */}
-      <BrowserRouter basename="/web-sixlabs">
+      <BrowserRouter basename={import.meta.env.DEV ? "/" : "/web-sixlabs"}>
         <App />
       </BrowserRouter>
     </ThemeProvider>
