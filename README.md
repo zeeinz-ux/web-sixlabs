@@ -1,15 +1,17 @@
 # 🚀 SixLabs — Modern Digital Solutions Agency
 
-Selamat datang di repositori resmi **SixLabs**, sebuah startup digital agency modern yang berfokus pada pengembangan:
+Selamat datang di repositori resmi **SixLabs**, sebuah startup digital agency modern yang berfokus pada pengembangan solusi digital yang scalable, responsive, dan siap digunakan untuk kebutuhan bisnis maupun organisasi modern.
 
-- Web Application
-- Mobile Application
+## 🌐 Layanan Kami
+
+- Web Application Development
+- Mobile Application Development
 - Company Profile Website
-- Landing Page
+- Landing Page Development
 - SEO Optimization
 - AI Integration
-
-Website ini dibangun menggunakan teknologi modern dengan arsitektur yang scalable, responsive, dan siap dikembangkan menjadi platform digital agency production-ready.
+- UI/UX Implementation
+- Digital Product Development
 
 ---
 
@@ -17,19 +19,19 @@ Website ini dibangun menggunakan teknologi modern dengan arsitektur yang scalabl
 
 ## 🌙 Dark Mode Support
 
-Menggunakan implementasi modern berbasis `:root {}` dan `data-theme`, sehingga tampilan website dapat berpindah antara light mode dan dark mode secara dinamis.
+Menggunakan sistem theme modern berbasis CSS Variables dan `data-theme`, memungkinkan perpindahan antara Light Mode dan Dark Mode secara dinamis dengan pengalaman pengguna yang konsisten.
 
 ---
 
 ## 📱 Fully Responsive Design
 
-Website dirancang menggunakan pendekatan **mobile-first** sehingga optimal di:
+Website dirancang menggunakan pendekatan Mobile-First sehingga optimal digunakan pada:
 
 - Android
 - iPhone
 - Tablet
 - Laptop
-- Desktop PC
+- Desktop
 
 Menggunakan:
 
@@ -40,93 +42,58 @@ Menggunakan:
 
 ---
 
+## 🎨 Modern UI/UX
+
+SixLabs menerapkan desain modern dengan fokus pada:
+
+- Clean Layout
+- Accessibility
+- Smooth Animation
+- Consistent Design System
+- Theme Awareness
+- Fast User Interaction
+
+---
+
 ## 🤖 AI Chatbot Integration
 
-SixLabs memiliki chatbot AI dengan sistem fallback multi-provider untuk menjaga stabilitas layanan AI.
+Website dilengkapi chatbot AI yang dirancang menggunakan arsitektur provider abstraction sehingga mudah dikembangkan dan ditingkatkan pada masa mendatang.
 
-### Urutan AI Fallback (Backend)
+### AI Fallback Flow
 
 1. Gemini 2.5 Flash
-2. Groq Llama 3.3 70B _(Coming Soon)_
-3. Mock Fallback _(Safety Net)_
+2. llama-3.3-70b-versatile
+3. Mock Provider Fallback
 
 ### Chatbot Architecture
 
-| Layer                   | Status     | File                                                       |
-| ----------------------- | ---------- | ---------------------------------------------------------- |
-| UI Components           | ✅ Done    | `ChatWidget`, `ChatWindow`, `ChatInput`, `MessageBubble`   |
-| State Management        | ✅ Done    | `useChatbot.js` + `ChatbotContext.jsx`                     |
-| Networking Abstraction  | ✅ Done    | `lib/chatbot.js` (mock mode + retry + error normalization) |
-| Styling                 | ✅ Done    | CSS Modules + Global CSS Variables                         |
-| API Integration         | ✅ Done    | `POST /api/v1/chat`                                        |
-| AI Provider Abstraction | 🔄 Batch 1 | Gemini 2.5 Flash + aiRouter + aiFallback + Mock            |
-| Firestore Logging       | ⏳ Pending | Menunggu Tahap 5                                           |
-| Google Sheets Sync      | ⏳ Pending | Menunggu Tahap 6                                           |
-
-### Message Data Shape
-
-Semua message object mengikuti shape konsisten:
-
-```js
-{
-  id: string,
-  role: "user" | "assistant" | "system",
-  content: string,
-  createdAt: string,
-  provider?: string,
-  status?: "sending" | "sent" | "error"
-}
-```
-
-### Chatbot UX Features
-
-- Floating Widget dengan toggle animation (180–250ms)
-- Fullscreen Mobile saat viewport < 640px
-- Body Scroll Lock saat chatbot terbuka di mobile
-- Auto-scroll ke latest message (dengan user scroll detection)
-- Typing Indicator controlled via state
-- Enter-to-Send (Shift+Enter untuk newline)
-- Textarea Auto-resize
-- Optimistic UI — message muncul langsung dengan status `"sending"`
-- Clear Chat — reset conversation ke welcome message
-- Z-Index Layering — chatbot layer 500, konsisten dengan elemen lain
-- Hybrid Mock Mode — template response + echo fallback untuk demo tanpa backend
+| Layer                | Status     |
+| -------------------- | ---------- |
+| UI Components        | ✅ Done    |
+| State Management     | ✅ Done    |
+| Networking Layer     | ✅ Done    |
+| API Integration      | ✅ Done    |
+| Gemini Integration   | ✅ Done    |
+| Provider Abstraction | ✅ Done    |
+| Groq Integration     | ✅ Done    |
+| Firestore Logging    | ⏳ Planned |
+| Analytics Layer      | ⏳ Planned |
 
 ---
 
-## ☁️ Free Tier Friendly Architecture
+## 💬 Chatbot UX Features
 
-Project dirancang agar tetap optimal menggunakan layanan free tier:
-
-- Firebase Firestore (Spark Plan)
-- Firebase Hosting
-- GitHub Actions
-- Google Sheets Integration
-
----
-
-## 🔄 Automatic Deployment
-
-Website mendukung auto deployment menggunakan GitHub Actions.
-
-Setiap perubahan pada branch utama dapat langsung:
-
-- build otomatis
-- deploy otomatis
-- update production
-
----
-
-## 📊 Google Sheets Integration
-
-Data dari:
-
-- Contact Form
-- Leads
-- Chatbot Logs
-- Project Requests
-
-dapat langsung disinkronkan ke Google Sheets untuk kebutuhan operasional tim.
+- Floating Chat Widget
+- Mobile Fullscreen Experience
+- Auto Scroll Conversation
+- Typing Indicator
+- Enter to Send
+- Shift + Enter New Line
+- Auto Resize Textarea
+- Optimistic UI Updates
+- Clear Conversation
+- Error Handling
+- Mock Mode Support
 
 ---
 
@@ -134,200 +101,112 @@ dapat langsung disinkronkan ke Google Sheets untuk kebutuhan operasional tim.
 
 ## Frontend
 
-- React
+- React 18
 - Vite
-- CSS Modules (styling utama)
-- Tailwind CSS (utility tambahan)
+- React Router DOM
+- Framer Motion
+- Lucide React
+- CSS Modules
 
 ## Backend
 
 - Node.js
-- TypeScript (strict mode)
 - Express.js
-- Zod (schema validation)
+- TypeScript
+- Zod
+- Dotenv
 - CORS
 
-## Database & Services
+## AI Integration
 
-- Firebase Firestore
-- Firebase Hosting
-- Google Sheets API
-
-## AI Providers
-
-- Gemini API (2.5 Flash) ✅
-- Groq API (Coming Soon)
+- Google Gemini 2.5 Flash
+- Provider Abstraction Layer
+- Mock Provider Fallback
 
 ---
 
-# 🏗️ Architecture Decisions
+# 🏗️ Architecture Principles
 
-## CSS Variables System
+## Component-Based Architecture
 
-Semua komponen chatbot consume global CSS variables:
+Frontend dibangun menggunakan pendekatan reusable component sehingga setiap bagian website dapat digunakan kembali dengan mudah dan mudah dipelihara.
 
-```css
-:root {
-  --bg: #ffffff;
-  --text: #111827;
-  --primary: #6366f1;
-  --primary-soft: rgba(99, 102, 241, 0.1);
-  --primary-hover: #4f46e5;
-  --surface: #f8fafc;
-  --surface-hover: #f1f5f9;
-  --border: #e5e7eb;
-  --muted: #6b7280;
-  --success: #22c55e;
-  --success-soft: rgba(34, 197, 94, 0.25);
-  --danger: #ef4444;
-  --danger-soft: rgba(239, 68, 68, 0.2);
+---
 
-  /* Z-Index Layer System */
-  --z-navbar: 100;
-  --z-mobile-menu: 200;
-  --z-modal: 300;
-  --z-toast: 400;
-  --z-chatbot: 500;
-}
+## Theme System
 
-[data-theme="dark"] {
-  --bg: #1e1e2e;
-  --text: #cdd6f4;
-  --primary: #89b4fa;
-  --primary-soft: rgba(137, 180, 250, 0.1);
-  --primary-hover: #74c7ec;
-  --surface: #181825;
-  --surface-hover: #313244;
-  --border: #313244;
-  --muted: #6c7086;
-  --success: #a6e3a1;
-  --success-soft: rgba(166, 227, 161, 0.25);
-  --danger: #f38ba8;
-  --danger-soft: rgba(243, 139, 168, 0.2);
-}
-```
+Semua komponen menggunakan CSS Variables global sehingga perubahan tema dapat dilakukan secara konsisten tanpa perlu mengubah setiap komponen secara manual.
 
-## Hybrid Styling Approach
-
-- **CSS Modules** → layout, animation, theme-aware styling, feature-specific styles
-- **Tailwind CSS** → utility classes (flex, gap, hidden, responsive) via `className`
+---
 
 ## State Management Strategy
 
-- Tidak menggunakan Redux/Zustand di tahap awal untuk menghindari overengineering
-- React Context + Custom Hooks untuk state chatbot yang cukup kompleks
-- Props drilling minimal karena semua chatbot sub-components consume `ChatbotContext`
+Menggunakan:
 
-## Networking Abstraction Layer
+- React Context
+- Custom Hooks
 
-- Frontend tidak boleh langsung call AI provider — semua lewat backend proxy
-- API key tidak di-expose ke frontend — aman di backend environment
-- Mock mode default — kalau `VITE_API_URL` kosong, otomatis fallback ke mock
-- Request/Response contract konsisten — `{ success, data, meta }` / `{ success, error, meta }`
-
-## AI Provider Architecture
-
-```text
-chat.controller.ts
-  └── aiRouter.service.ts
-        └── aiFallback.service.ts
-              ├── gemini.provider.ts (Gemini 2.5 Flash)
-              ├── groq.provider.ts (Groq Llama 3.3 70B)
-              └── mockFallback.provider.ts (Safety Net)
-```
-
-Principles:
-
-- Controller tidak coupling langsung ke provider
-- Provider interface universal (generateReply)
-- Mock fallback tetap dipertahankan sebagai safety net
-- Env keys optional — provider auto-activates kalau key tersedia
-- Timeout per provider: 15000ms
-- Provider error tidak di-expose ke frontend
+Pendekatan ini dipilih untuk menjaga project tetap ringan tanpa menambahkan kompleksitas berlebih dari state manager eksternal.
 
 ---
 
-# 📁 Struktur Folder Project
+## API Layer Abstraction
+
+Frontend tidak berkomunikasi langsung dengan provider AI.
+
+Semua request dilakukan melalui backend untuk:
+
+- Menjaga keamanan API Key
+- Mempermudah provider switching
+- Menyederhanakan maintenance
+- Menjaga konsistensi response
+
+---
+
+# 📁 Struktur Project
 
 ```bash
-/web-sixlabs
+web-sixlabs/
+│
 ├── frontend/
 │   ├── public/
-│   │   └── sixlabs.svg
 │   ├── src/
 │   │   ├── assets/
 │   │   ├── components/
-│   │   │   ├── buttons/
-│   │   │   ├── chatbot/
-│   │   │   │   ├── css/
-│   │   │   │   │   ├── chatWidget.module.css
-│   │   │   │   │   ├── chatWindow.module.css
-│   │   │   │   │   ├── chatInput.module.css
-│   │   │   │   │   └── messageBubble.module.css
-│   │   │   │   ├── hooks/
-│   │   │   │   │   └── useChatbot.js
-│   │   │   │   ├── context/
-│   │   │   │   │   └── ChatbotContext.jsx
-│   │   │   │   ├── ChatWidget.jsx
-│   │   │   │   ├── ChatWindow.jsx
-│   │   │   │   ├── ChatInput.jsx
-│   │   │   │   └── MessageBubble.jsx
-│   │   │   ├── footer/
-│   │   │   ├── navbar/
-│   │   │   └── ui/
-│   │   ├── lib/
-│   │   │   └── chatbot.js
+│   │   ├── pages/
+│   │   ├── hooks/
+│   │   ├── context/
 │   │   ├── sections/
+│   │   ├── lib/
 │   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── index.html
+│   │   └── Main.jsx
+│   │
 │   ├── package.json
-│   ├── vite.config.js
-│   └── tailwind.config.js
+│   └── vite.config.js
 │
 ├── backend/
 │   ├── src/
 │   │   ├── config/
-│   │   │   └── env.ts
 │   │   ├── controllers/
-│   │   │   ├── chat.controller.ts
-│   │   │   └── health.controller.ts
 │   │   ├── routes/
-│   │   │   ├── chat.routes.ts
-│   │   │   └── health.routes.ts
 │   │   ├── schemas/
-│   │   │   └── chat.schema.ts
 │   │   ├── services/
-│   │   │   └── ai/
-│   │   │       ├── types.ts
-│   │   │       ├── aiRouter.service.ts
-│   │   │       ├── aiFallback.service.ts
-│   │   │       └── providers/
-│   │   │           └── gemini.provider.ts
 │   │   ├── app.ts
 │   │   └── server.ts
-│   ├── .env
-│   ├── .env.example
+│   │
 │   ├── package.json
 │   ├── tsconfig.json
-│   └── nodemon.json
+│   └── .env.example
 │
-├── .github/
-│   └── workflows/
-│       └── deploy.yml
-│
-├── firebase.json
-├── firestore.rules
-├── .gitignore
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ---
 
 # 🚀 Memulai Project
 
-## 1. Clone Repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/zeeinz-ux/web-sixlabs.git
@@ -338,25 +217,15 @@ cd web-sixlabs
 
 # 📦 Menjalankan Frontend
 
-## Masuk ke folder frontend
-
 ```bash
 cd frontend
-```
 
-## Install dependencies
-
-```bash
 npm install
-```
 
-## Jalankan development server
-
-```bash
 npm run dev
 ```
 
-Frontend akan berjalan di:
+Frontend berjalan pada:
 
 ```bash
 http://localhost:5173
@@ -366,59 +235,36 @@ http://localhost:5173
 
 # ⚙️ Menjalankan Backend
 
-## Masuk ke folder backend
-
 ```bash
 cd backend
-```
 
-## Install dependencies
-
-```bash
 npm install
-```
 
-## Setup environment
-
-```bash
 cp .env.example .env
-```
 
-## Jalankan backend server
-
-```bash
 npm run dev
 ```
 
-Backend API akan berjalan di:
+Backend berjalan pada:
 
 ```bash
 http://localhost:5000
 ```
 
-## Cek Health Endpoint
+---
 
-```bash
-curl http://localhost:5000/api/v1/health
+# 🔌 API Endpoints
+
+## Health Check
+
+```http
+GET /api/v1/health
 ```
 
-Expected response:
+## Chat Endpoint
 
-```json
-{
-  "success": true,
-  "data": {
-    "status": "ok",
-    "service": "sixlabs-backend",
-    "uptime": 1.234,
-    "timestamp": "2026-05-26T15:31:00.000Z",
-    "environment": "development",
-    "version": "1.0.0"
-  },
-  "meta": {
-    "timestamp": "2026-05-26T15:31:00.000Z"
-  }
-}
+```http
+POST /api/v1/chat
 ```
 
 ---
@@ -428,69 +274,78 @@ Expected response:
 ## Frontend
 
 ```env
-VITE_API_URL=                    # Kosong = auto mock mode
-VITE_CHATBOT_MOCK_MODE=true      # Paksa mock mode (optional)
-VITE_FIREBASE_API_KEY=
+VITE_API_URL=
+VITE_CHATBOT_MOCK_MODE=true
 ```
 
 ## Backend
 
 ```env
-# Server (Required)
 PORT=5000
 NODE_ENV=development
+
 FRONTEND_URL=http://localhost:5173
 
-# Chat Fallback Mode (Tahap 3–4)
-CHAT_MOCK_MODE=template          # template | echo
+GEMINI_API_KEY=
 
-# AI Provider API Keys (Tahap 4 — optional, auto-activates provider)
-GEMINI_API_KEY=                  # Gemini 2.5 Flash
-GROQ_API_KEY=                    # Coming Soon
-
-
-# Firebase (Tahap 5 — Firestore Logging)
-FIREBASE_PROJECT_ID=
-FIREBASE_CLIENT_EMAIL=
-FIREBASE_PRIVATE_KEY=
-
-# Google Sheets (Tahap 6 — Sheets Sync)
-GOOGLE_SHEETS_ID=
-
-# Security (Tahap 7 — Auth & Rate Limiting)
 JWT_SECRET=
 ```
 
 ---
 
-# 🤝 Tim SixLabs
+# 📈 Future Integrations
 
-SixLabs merupakan startup digital agency yang beranggotakan 6 orang developer dengan fokus pada pengembangan solusi digital modern dan scalable.
+Fitur berikut masih berada dalam tahap pengembangan:
+
+- Groq AI Integration
+- Firestore Chat Logging
+- Google Sheets Sync
+- Authentication System
+- Rate Limiting
+- Analytics Dashboard
+- AI Usage Monitoring
+- Lead Management System
 
 ---
 
 # 📌 Roadmap
 
+## Frontend
+
 - [x] Landing Page
 - [x] Responsive Design
 - [x] Dark Mode
-- [x] Chatbot UI Layer (Widget, Window, Input, Bubble)
-- [x] Chatbot State Management (Context + Hooks)
-- [x] Chatbot Networking Abstraction (lib/chatbot.js)
-- [x] Backend Foundational Layer (Express + TypeScript + Health Check)
-- [x] Backend Chat Endpoint (POST /api/v1/chat + Zod Validation)
-- [x] AI Provider Interface & Types
-- [x] AI Router Service (aiRouter.service.ts)
-- [x] AI Fallback Service (aiFallback.service.ts)
-- [x] Gemini 2.5 Flash Provider Integration
-- [ ] Groq Provider Integration
-- [ ] Firestore Chat Logging
+- [x] Component System
+- [x] Chatbot UI
+- [x] Animation System
+
+## Backend
+
+- [x] Express API
+- [x] TypeScript Setup
+- [x] Health Endpoint
+- [x] Chat Endpoint
+- [x] Zod Validation
+- [x] Gemini Integration
+- [x] Groq Integration
+
+## Future Development
+
+- [ ] Firestore Logging
 - [ ] Google Sheets Sync
-- [ ] Auth & Rate Limiting
-- [ ] AI Analytics
+- [ ] Authentication
+- [ ] Rate Limiting
+- [ ] Analytics Dashboard
+- [ ] AI Insights
+
+---
+
+# 👥 Team
+
+SixLabs merupakan startup digital agency yang berfokus pada pengembangan solusi digital modern dengan pendekatan scalable architecture, modern design, dan AI-powered solutions.
 
 ---
 
 # 📄 License
 
-Project ini dibuat untuk pengembangan dan operasional internal SixLabs.
+Project ini dikembangkan untuk kebutuhan internal dan pengembangan bisnis SixLabs.

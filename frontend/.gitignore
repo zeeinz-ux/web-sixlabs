@@ -1,22 +1,69 @@
+# ==========================================
 # Dependencies
-/node_modules
+# ==========================================
 
-# Build output
-/dist
+node_modules/
 
-# Log files
+# ==========================================
+# Environment Variables
+# ==========================================
+
+.env
+.env.local
+.env.production
+.env.development
+.env.*.local
+
+# ==========================================
+# Build Outputs
+# ==========================================
+
+dist/
+build/
+out/
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage Reports
+coverage/
+
+# ==========================================
+# Vite Cache
+# ==========================================
+
+.vite/
+
+# ==========================================
+# Cache & Temporary Files
+# ==========================================
+
+.cache/
+.parcel-cache/
+tmp/
+temp/
+
+# ==========================================
+# Logs
+# ==========================================
+
+*.log
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# Environment variables
-.env
-.env.local
-.env.*.local
+# ==========================================
+# IDE & Editors
+# ==========================================
 
-# Vite build cache
-.vite
+.vscode/
+.idea/
 
-# Editor directories and files
-.vscode
-.idea
+# ==========================================
+# OS Files
+# ==========================================
+
+.DS_Store
+Thumbs.db
