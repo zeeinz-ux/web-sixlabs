@@ -62,12 +62,24 @@ function ContactForm() {
     setStatus("loading");
 
     try {
-      // TODO: Replace with Firestore integration in Stage 2
-      // await addDoc(collection(db, 'contacts'), { ...form, timestamp: serverTimestamp() });
-      await new Promise((r) => setTimeout(r, 1200)); // simulate API call
+      const response = await fetch("http://localhost:5000/api/v1/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to submit");
+      }
+
       setStatus("success");
       setForm(INITIAL);
-    } catch {
+    } catch (error) {
+      console.error("[Contact Form Error]", error);
       setStatus("error");
     }
   };

@@ -297,7 +297,6 @@ JWT_SECRET=
 
 Fitur berikut masih berada dalam tahap pengembangan:
 
-- Groq AI Integration
 - Firestore Chat Logging
 - Google Sheets Sync
 - Authentication System

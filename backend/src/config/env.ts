@@ -27,7 +27,8 @@ const envSchema = z.object({
   FIREBASE_PRIVATE_KEY: z.string().optional(),
 
   // Google Sheets (Tahap 6 — Sheets Sync)
-  GOOGLE_SHEETS_ID: z.string().optional(),
+  GOOGLE_SHEETS_ID: z.string().min(1),
+  GOOGLE_SERVICE_ACCOUNT: z.string().min(1),
 
   // Security (Tahap 7 — Auth & Rate Limiting)
   JWT_SECRET: z.string().optional(),

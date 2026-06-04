@@ -4,7 +4,7 @@ export const SITE = {
   description:
     "Tim startup digital berisi 6 orang yang siap membangun web app, mobile app, dan solusi digital untuk bisnis kamu.",
   url: "https://sixlabs.id",
-  email: "sixlabs5023@gmail.com",
+  email: "sixlabs0523@gmail.com",
   whatsapp: "+62 852 8594 4423",
   whatsappMsg: "Halo SixLabs! Saya ingin konsultasi tentang project saya.",
   instagram: "https://instagram.com/sixlabs.id",

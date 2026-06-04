@@ -3,6 +3,7 @@ import cors from "cors";
 import { env } from "./config/env";
 import healthRoutes from "./routes/health.routes";
 import chatRoutes from "./routes/chat.routes";
+import contactRoutes from "./routes/contact.routes";
 
 /* ─────────────────────────────────────────
    Express App Setup
@@ -25,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 /* ── 3. API Routes (Versioned) ── */
 app.use("/api/v1", healthRoutes);
 app.use("/api/v1/chat", chatRoutes);
-
+app.use("/api/v1/contact", contactRoutes);
 /* ── 4. 404 Handler ── */
 app.use((_req: Request, res: Response) => {
   res.status(404).json({
