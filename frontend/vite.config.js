@@ -4,7 +4,8 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === "production" ? "/web-sixlabs/" : "/",
+  // Ubah base menjadi "/" saja agar file dibaca dari root
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
