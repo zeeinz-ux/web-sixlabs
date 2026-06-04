@@ -129,15 +129,40 @@
 }
 
 @media (max-width: 992px) {
-  .story,
-  .vm,
-  .values {
+  .story {
     grid-template-columns: 1fr;
+  }
+
+  .vm {
+    grid-template-columns: 1fr;
+  }
+
+  .values {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
+  .values {
+    grid-template-columns: 1fr;
+  }
+
+  .story__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vmCard,
+  .valueCard {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
   .story__stats {
     grid-template-columns: 1fr;
+  }
+
+  .story {
+    margin-bottom: 3rem;
   }
 }

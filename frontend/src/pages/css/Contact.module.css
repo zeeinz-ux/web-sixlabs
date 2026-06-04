@@ -265,3 +265,20 @@ select.input:focus {
   color: var(--text-primary);
   font-weight: 500;
 }
+
+/* ── Mobile Responsive ── */
+@media (max-width: 640px) {
+  .successState {
+    padding: 32px 20px;
+  }
+
+  .infoItems {
+    gap: 12px;
+  }
+
+  .infoIcon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+}
