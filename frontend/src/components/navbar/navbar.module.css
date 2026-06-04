@@ -44,20 +44,31 @@
   flex-shrink: 0;
 }
 
-.logo__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
+.logo__image {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
 .logo__text {
+  display: flex;
+  align-items: center;
+
   font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
+
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.logo__textPrimary {
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+}
+
+.logo__textAccent {
+  color: var(--accent);
 }
 
 /* ── Desktop links ── */

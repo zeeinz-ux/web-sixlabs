@@ -43,8 +43,16 @@ export function Navbar() {
               scrollToSection("#home");
             }}
           >
-            <span className={styles.logo__dot} aria-hidden="true" />
-            <span className={styles.logo__text}>SixLabs</span>
+            <img
+              src="/Logo-SIXLABS.png"
+              alt="SixLabs Logo"
+              className={styles.logo__image}
+            />
+
+            <span className={styles.logo__text}>
+              <span className={styles.logo__textPrimary}>Six</span>
+              <span className={styles.logo__textAccent}>Labs</span>
+            </span>
           </a>
 
           {/* Desktop links */}

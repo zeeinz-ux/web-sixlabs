@@ -41,23 +41,44 @@
 .brand__logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
   margin-bottom: 1rem;
 }
 
-.brand__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
+.brand__image {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
 .brand__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.02em;
+
   font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.brand__namePrimary,
+.brand__nameAccent {
+  font-weight: 900;
+}
+
+.brand__namePrimary {
   color: var(--text-primary);
+}
+
+.brand__nameAccent {
+  color: var(--accent);
 }
 
 .brand__desc {

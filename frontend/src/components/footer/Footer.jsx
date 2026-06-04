@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { SITE } from '@/lib/constants';
-import { FooterLinks } from './FooterLinks';
-import styles from './footer.module.css';
+import { SITE } from "@/lib/constants";
+import { FooterLinks } from "./FooterLinks";
+import styles from "./footer.module.css";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -15,8 +15,16 @@ export function Footer() {
           {/* Brand */}
           <div className={styles.brand}>
             <div className={styles.brand__logo}>
-              <span className={styles.brand__dot} aria-hidden="true" />
-              <span className={styles.brand__name}>SixLabs</span>
+              <img
+                src="/Logo-SIXLABS.png"
+                alt="SixLabs Logo"
+                className={styles.brand__image}
+              />
+
+              <span className={styles.brand__name}>
+                <span className={styles.brand__namePrimary}>Six</span>
+                <span className={styles.brand__nameAccent}>Labs</span>
+              </span>
             </div>
             <p className={styles.brand__desc}>
               Tim startup digital berisi 6 orang yang siap membangun produk

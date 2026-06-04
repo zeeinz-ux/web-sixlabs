@@ -10,7 +10,7 @@ import styles from "./css/Contact.module.css";
 const CONTACT = {
   email: "sixlabs5023@gmail.com",
   whatsapp: "+62 852 8594 4423",
-  whatsappDisplay: "+62 812 3456 7890",
+  whatsappDisplay: "+62 852 8594 4423",
   whatsappMessage:
     "Halo SixLabs! Saya tertarik untuk mendiskusikan project bersama kalian.",
   instagram: "https://instagram.com/sixlabs",
