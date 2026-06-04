@@ -44,7 +44,7 @@ export function Navbar() {
             }}
           >
             <img
-              src="/Logo-SIXLABS.png"
+              src={`${import.meta.env.BASE_URL}Logo-SIXLABS.png`}
               alt="SixLabs Logo"
               className={styles.logo__image}
             />

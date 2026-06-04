@@ -16,7 +16,7 @@ export function Footer() {
           <div className={styles.brand}>
             <div className={styles.brand__logo}>
               <img
-                src="/Logo-SIXLABS.png"
+                src={`${import.meta.env.BASE_URL}Logo-SIXLABS.png`}
                 alt="SixLabs Logo"
                 className={styles.brand__image}
               />
