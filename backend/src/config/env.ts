@@ -9,7 +9,7 @@ const envSchema = z.object({
   // Server (Required)
   PORT: z.coerce.number().min(1).max(65535).default(5000),
   NODE_ENV: z.enum(["development", "production"]).default("development"),
-  FRONTEND_URL: z.string().min(1).default("http://localhost:5173"),
+  FRONTEND_URL: z.string().min(1).default("https://web-sixlabs-1.onrender.com"),
 
   // AI Provider API Keys (Tahap 4 — optional, auto-activates provider if present)
   GEMINI_API_KEY: z.string().optional(),
