@@ -9,7 +9,8 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
-      <BrowserRouter basename={import.meta.env.DEV ? "/" : "/web-sixlabs"}>
+      {/* Cukup pakai BrowserRouter kosong seperti ini agar berjalan lancar di lokal maupun Render */}
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </ThemeProvider>
