@@ -62,23 +62,17 @@ export async function appendLead(data: {
     range: "Leads!A:H",
     valueInputOption: "USER_ENTERED",
     requestBody: {
+      // Pastikan urutan array ini sama persis dengan urutan Header di atas
       values: [
         [
-          nextIdString, // Hasilnya akan menjadi "LEAD-001", "LEAD-002", dst.
-          new Date().toLocaleString("id-ID", {
-            timeZone: "Asia/Jakarta",
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          data.name,
-          data.email,
-          data.service || "-",
-          "New",
-          "Website",
-          data.message,
+          `LEAD-${Date.now().toString().slice(-4)}`, // A: Lead ID
+          new Date().toLocaleString("id-ID"), // B: Tanggal
+          data.name, // C: Nama
+          data.email, // D: Email
+          data.service || "-", // E: Layanan
+          "New", // F: Status
+          "Website", // G: Source
+          data.message, // H: Pesan
         ],
       ],
     },
