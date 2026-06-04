@@ -56,23 +56,29 @@ export async function appendLead(data: {
     nextIdString = `LEAD-${Math.floor(100 + Math.random() * 900)}`;
   }
 
-  // 2. Masukkan data ke baris baru menggunakan ID berurutan yang sudah dibuat
+  // 2. Masukkan data ke baris baru menggunakan ID berurutan (nextIdString)
   await sheets.spreadsheets.values.append({
     spreadsheetId: env.GOOGLE_SHEETS_ID,
     range: "Leads!A:H",
     valueInputOption: "USER_ENTERED",
     requestBody: {
-      // Pastikan urutan array ini sama persis dengan urutan Header di atas
       values: [
         [
-          `LEAD-${Date.now().toString().slice(-4)}`, // A: Lead ID
-          new Date().toLocaleString("id-ID"), // B: Tanggal
-          data.name, // C: Nama
-          data.email, // D: Email
-          data.service || "-", // E: Layanan
-          "New", // F: Status
-          "Website", // G: Source
-          data.message, // H: Pesan
+          nextIdString, // <-- GUNAKAN VARIABEL INI, BUKAN DATE.NOW()
+          new Date().toLocaleString("id-ID", {
+            timeZone: "Asia/Jakarta",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          data.name,
+          data.email,
+          data.service || "-",
+          "New",
+          "Website",
+          data.message,
         ],
       ],
     },
