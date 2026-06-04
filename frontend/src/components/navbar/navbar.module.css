@@ -285,6 +285,9 @@
 @media (max-width: 767px) {
   .header {
     width: calc(100% - 2rem);
+    left: 1rem;
+    right: 1rem;
+    transform: none;
     top: 0.75rem;
   }
 
@@ -297,5 +300,17 @@
 
   .hamburger {
     display: flex;
+  }
+}
+
+@media (max-width: 360px) {
+  .header {
+    width: calc(100% - 1.5rem);
+    left: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .nav {
+    padding: 0.5rem 0.875rem;
   }
 }

@@ -378,15 +378,48 @@
   }
 }
 
+/* ── Tablet kecil & HP layar besar (481px – 767px) ── */
+@media (max-width: 767px) {
+  .illustration {
+    height: 320px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .chip__tech {
+    left: 0;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .chip__delivery {
+    right: 0;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .chip__review {
+    left: 0;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .card__main {
+    width: 220px;
+  }
+}
+
+/* ── HP kecil (≤ 480px) ── */
 @media (max-width: 480px) {
   .illustration {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    gap: 25px;
+    gap: 12px;
     height: auto;
     min-height: unset;
+    overflow: visible;
+    width: 100%;
   }
 
   .hero {
@@ -402,9 +435,13 @@
     position: static;
     transform: none;
     margin: 0;
+    width: 100%;
+    max-width: 280px;
   }
 
   .card__main {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    width: 100%;
+    max-width: 280px;
   }
 }
