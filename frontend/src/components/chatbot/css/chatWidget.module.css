@@ -72,15 +72,19 @@
   transition: transform 200ms ease;
 }
 
-/* ── Window Wrapper ── */
 .windowWrapper {
-  transform-origin: bottom right;
-  opacity: 0;
-  transform: scale(0.9) translateY(12px);
-  pointer-events: none;
-  transition:
-    opacity 200ms ease,
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0.5rem;       /* lebih lega di layar kecil */
+  transform-origin: center bottom;
+  overflow-y: auto;      /* supaya chat bisa discroll di HP */
+
 }
 
 .windowOpen {
