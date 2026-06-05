@@ -152,6 +152,13 @@ export const useChatbot = () => {
       } catch (error) {
         // Error sudah dalam bentuk ChatError (normalized)
         console.error("[useChatbot] sendMessage error:", error);
+        console.error(
+          "[useChatbot] error detail:",
+          error?.error?.code,
+          error?.error?.message,
+          "| API URL:",
+          import.meta.env.VITE_API_URL || "(kosong — mock mode aktif)",
+        );
 
         // Update user message status → error
         setMessages((prev) =>

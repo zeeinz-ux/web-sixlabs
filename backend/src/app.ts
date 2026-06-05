@@ -12,9 +12,20 @@ import contactRoutes from "./routes/contact.routes";
 const app = express();
 
 /* ── 1. CORS ── */
+const ALLOWED_ORIGINS = [
+  env.FRONTEND_URL,
+  "https://sixlabs.github.io", // GitHub Pages (sesuaikan username)
+  "https://web-sixlabs.vercel.app", // Vercel (jika ada)
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: env.FRONTEND_URL,
+    origin: (origin, callback) => {
+      // Izinkan request tanpa origin (curl, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+      if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
+      callback(new Error(`CORS blocked: ${origin}`));
+    },
     credentials: true,
   }),
 );

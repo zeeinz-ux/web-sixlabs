@@ -18,12 +18,13 @@ const ENV = {
 };
 
 /* ── Runtime Config (mutable for testing/debug) ── */
+const _apiUrl = ENV.API_URL?.trim();
 let _runtimeConfig = {
   timeoutMs: 15_000,
   maxRetries: 2,
   backoffMs: 1_000,
-  mockMode: ENV.MOCK_MODE || !ENV.API_URL,
-  apiUrl: ENV.API_URL,
+  mockMode: ENV.MOCK_MODE || !_apiUrl,
+  apiUrl: _apiUrl || "",
 };
 
 /* ── Public: Get/Set Config ── */

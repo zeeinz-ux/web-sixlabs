@@ -8,7 +8,7 @@ import { WhatsAppButton } from "@/components/buttons/Buttons.jsx";
 import styles from "./css/Contact.module.css";
 
 const CONTACT = {
-  email: "sixlabs0523@gmail.com",
+  email: "sixlabs5023@gmail.com",
   whatsapp: "+62 852 8594 4423",
   whatsappDisplay: "+62 852 8594 4423",
   whatsappMessage:
