@@ -14,8 +14,9 @@ const app = express();
 /* ── 1. CORS ── */
 const ALLOWED_ORIGINS = [
   env.FRONTEND_URL,
-  "https://sixlabs.github.io", // GitHub Pages (sesuaikan username)
-  "https://web-sixlabs.vercel.app", // Vercel (jika ada)
+  "https://web-sixlabs-1.onrender.com",
+  "https://sixlabs.github.io",
+  "https://web-sixlabs.vercel.app",
 ].filter(Boolean);
 
 app.use(
