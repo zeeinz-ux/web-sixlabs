@@ -19,13 +19,22 @@
   flex-direction: row;
 }
 
-/* ── Avatar ── */
+/* ── Avatar di samping bubble bot ── */
 .avatar {
   flex-shrink: 0;
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 0.5rem;
   overflow: hidden;
+  background: var(--accent-light, rgba(37, 99, 235, 0.12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  /* Sejajar dengan bottom bubble */
+  align-self: flex-end;
+  margin-bottom: 1.25rem; /* offset supaya sejajar bubble, di atas timestamp */
 }
 
 .avatarImg {
@@ -37,11 +46,11 @@
 .avatarFallback {
   width: 100%;
   height: 100%;
-  background: var(--primary-soft, rgba(99, 102, 241, 0.1));
-  color: var(--primary, #6366f1);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 /* ── Content Wrapper ── */
@@ -69,15 +78,18 @@
   word-break: break-word;
 }
 
+/* User bubble — pakai accent (biru), teks putih */
 .userBubble {
-  background: var(--primary, #6366f1);
-  color: var(--bg, #ffffff);
+  background: var(--accent, #2563eb);
+  color: #ffffff;
   border-bottom-right-radius: 0.25rem;
 }
 
+/* Bot bubble — pakai CSS variable supaya dark mode otomatis ikut */
 .botBubble {
-  background: var(--surface, #f3f4f6);
-  color: #1f2937;
+  background: var(--bg-surface-2, #f3f4f6);
+  color: var(--text-primary, #111827);
+  border: 1px solid var(--border-color, rgba(15, 23, 42, 0.08));
   border-bottom-left-radius: 0.25rem;
 }
 
@@ -85,13 +97,13 @@
   color: inherit;
   margin: 0;
   white-space: pre-wrap;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* ── Timestamp ── */
 .time {
   font-size: 0.6875rem;
-  color: var(--muted, #9ca3af);
+  color: var(--text-muted, #9ca3af);
 }
 
 .timeUser {
@@ -117,7 +129,7 @@
 /* ── Responsive Mobile ── */
 @media (max-width: 640px) {
   .content {
-    max-width: 85%;
+    max-width: 82%;
   }
 }
 

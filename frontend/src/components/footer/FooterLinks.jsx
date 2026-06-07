@@ -1,5 +1,3 @@
-"use client";
-
 import { SITE } from "../../lib/constants";
 import { buildWhatsAppLink, scrollToSection } from "../../lib/utils";
 import styles from "./footer.module.css";

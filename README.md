@@ -19,7 +19,7 @@ Selamat datang di repositori resmi **SixLabs**, sebuah startup digital agency mo
 
 ## 🌙 Dark Mode Support
 
-Menggunakan sistem theme modern berbasis CSS Variables dan `data-theme`, memungkinkan perpindahan antara Light Mode dan Dark Mode secara dinamis dengan pengalaman pengguna yang konsisten.
+Menggunakan sistem theme modern berbasis CSS Variables dan `data-theme`, memungkinkan perpindahan antara Light Mode dan Dark Mode secara dinamis. Semua komponen chatbot, bubble pesan, input area, dan header sepenuhnya theme-aware menggunakan CSS Variables global — tidak ada hardcoded color.
 
 ---
 
@@ -39,6 +39,7 @@ Menggunakan:
 - CSS Grid
 - Media Queries
 - Responsive Navigation
+- `env(safe-area-inset-top/bottom)` untuk dukungan notch & home bar
 
 ---
 
@@ -47,10 +48,10 @@ Menggunakan:
 SixLabs menerapkan desain modern dengan fokus pada:
 
 - Clean Layout
-- Accessibility
-- Smooth Animation
+- Accessibility (aria-label, aria-expanded, role)
+- Smooth Animation (Framer Motion)
 - Consistent Design System
-- Theme Awareness
+- Theme Awareness (Light & Dark Mode)
 - Fast User Interaction
 
 ---
@@ -61,8 +62,8 @@ Website dilengkapi chatbot AI yang dirancang menggunakan arsitektur provider abs
 
 ### AI Fallback Flow
 
-1. Gemini 2.5 Flash
-2. llama-3.3-70b-versatile
+1. Gemini 3.5 Flash
+2. Groq — llama-3.3-70b-versatile
 3. Mock Provider Fallback
 
 ### Chatbot Architecture
@@ -83,17 +84,18 @@ Website dilengkapi chatbot AI yang dirancang menggunakan arsitektur provider abs
 
 ## 💬 Chatbot UX Features
 
-- Floating Chat Widget
-- Mobile Fullscreen Experience
+- Floating Chat Widget (desktop pojok kanan bawah)
+- Mobile Fullscreen Experience (fullscreen dengan safe area support)
 - Auto Scroll Conversation
-- Typing Indicator
-- Enter to Send
-- Shift + Enter New Line
+- Typing Indicator dengan avatar 🤖
+- AI Avatar di setiap bubble pesan bot
+- Enter to Send / Shift+Enter New Line
 - Auto Resize Textarea
 - Optimistic UI Updates
 - Clear Conversation
-- Error Handling
+- Error Handling & Retry dengan Exponential Backoff
 - Mock Mode Support
+- Body Scroll Lock saat chat terbuka di mobile
 
 ---
 
@@ -102,24 +104,26 @@ Website dilengkapi chatbot AI yang dirancang menggunakan arsitektur provider abs
 ## Frontend
 
 - React 18
-- Vite
-- React Router DOM
+- Vite 5
+- React Router DOM v6
 - Framer Motion
 - Lucide React
 - CSS Modules
 
 ## Backend
 
-- Node.js
+- Node.js ≥ 18
 - Express.js
-- TypeScript
-- Zod
+- TypeScript (strict mode)
+- Zod (validation & env parsing)
 - Dotenv
 - CORS
+- Google APIs (Sheets)
 
 ## AI Integration
 
-- Google Gemini 2.5 Flash
+- Google Gemini 3.5 Flash
+- Groq — llama-3.3-70b-versatile
 - Provider Abstraction Layer
 - Mock Provider Fallback
 
@@ -135,7 +139,7 @@ Frontend dibangun menggunakan pendekatan reusable component sehingga setiap bagi
 
 ## Theme System
 
-Semua komponen menggunakan CSS Variables global sehingga perubahan tema dapat dilakukan secara konsisten tanpa perlu mengubah setiap komponen secara manual.
+Semua komponen menggunakan CSS Variables global (`--bg-surface`, `--text-primary`, `--accent`, dst.) sehingga perubahan tema dapat dilakukan secara konsisten. Toggle theme disimpan ke `localStorage` dengan key `sixlabs-theme` dan membaca `prefers-color-scheme` sebagai default.
 
 ---
 
@@ -144,7 +148,7 @@ Semua komponen menggunakan CSS Variables global sehingga perubahan tema dapat di
 Menggunakan:
 
 - React Context
-- Custom Hooks
+- Custom Hooks (`useChatbot`, `useDarkMode`, `useScrollPosition`, `useMediaQuery`)
 
 Pendekatan ini dipilih untuk menjaga project tetap ringan tanpa menambahkan kompleksitas berlebih dari state manager eksternal.
 
@@ -165,32 +169,54 @@ Semua request dilakukan melalui backend untuk:
 
 # 📁 Struktur Project
 
-```bash
+```
 web-sixlabs/
 │
 ├── frontend/
 │   ├── public/
 │   ├── src/
-│   │   ├── assets/
 │   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── context/
-│   │   ├── sections/
-│   │   ├── lib/
+│   │   │   ├── chatbot/          ← AI Chatbot Widget
+│   │   │   │   ├── context/      ← ChatbotContext
+│   │   │   │   ├── hooks/        ← useChatbot
+│   │   │   │   ├── css/          ← CSS Modules per komponen
+│   │   │   │   ├── ChatWidget.jsx
+│   │   │   │   ├── ChatWindow.jsx
+│   │   │   │   ├── ChatInput.jsx
+│   │   │   │   └── MessageBubble.jsx
+│   │   │   ├── navbar/
+│   │   │   ├── footer/
+│   │   │   ├── buttons/
+│   │   │   └── ui/
+│   │   ├── pages/                ← Home, Services, Portfolio, Contact, About, Faq
+│   │   ├── hooks/                ← useDarkMode, useScrollPosition, useMediaQuery
+│   │   ├── context/              ← ThemeContext
+│   │   ├── lib/                  ← chatbot.js (networking), constants.js, utils.js
+│   │   ├── styles/               ← variables.css, globals.css, animations.css
 │   │   ├── App.jsx
 │   │   └── Main.jsx
 │   │
 │   ├── package.json
-│   └── vite.config.js
+│   ├── vite.config.js
+│   └── tailwind.config.js
 │
 ├── backend/
 │   ├── src/
 │   │   ├── config/
+│   │   │   └── env.ts            ← Zod env validation
 │   │   ├── controllers/
+│   │   │   ├── chat.controller.ts
+│   │   │   ├── contact.controller.ts
+│   │   │   └── health.controller.ts
 │   │   ├── routes/
-│   │   ├── schemas/
+│   │   ├── schemas/              ← Zod request schemas
 │   │   ├── services/
+│   │   │   ├── ai/
+│   │   │   │   ├── providers/    ← gemini.provider.ts, groq.provider.ts
+│   │   │   │   ├── aiFallback.service.ts
+│   │   │   │   ├── aiRouter.service.ts
+│   │   │   │   └── systemPrompt.ts
+│   │   │   └── googleSheets.service.ts
 │   │   ├── app.ts
 │   │   └── server.ts
 │   │
@@ -227,7 +253,7 @@ npm run dev
 
 Frontend berjalan pada:
 
-```bash
+```
 http://localhost:5173
 ```
 
@@ -241,13 +267,14 @@ cd backend
 npm install
 
 cp .env.example .env
+# Edit .env dan isi API keys yang diperlukan
 
 npm run dev
 ```
 
 Backend berjalan pada:
 
-```bash
+```
 http://localhost:5000
 ```
 
@@ -265,6 +292,27 @@ GET /api/v1/health
 
 ```http
 POST /api/v1/chat
+
+Body:
+{
+  "message": "string (max 4000 chars)",
+  "sessionId": "string (optional)",
+  "history": [{ "role": "user|assistant", "content": "string" }] (optional, max 20)
+}
+```
+
+## Contact / Lead Submission
+
+```http
+POST /api/v1/contact
+
+Body:
+{
+  "name": "string",
+  "email": "string",
+  "service": "string (optional)",
+  "message": "string"
+}
 ```
 
 ---
@@ -274,9 +322,11 @@ POST /api/v1/chat
 ## Frontend
 
 ```env
-VITE_API_URL=
-VITE_CHATBOT_MOCK_MODE=true
+VITE_API_URL=http://localhost:5000
+VITE_CHATBOT_MOCK_MODE=false
 ```
+
+> Set `VITE_CHATBOT_MOCK_MODE=true` untuk menggunakan mock responses tanpa backend.
 
 ## Backend
 
@@ -286,10 +336,19 @@ NODE_ENV=development
 
 FRONTEND_URL=http://localhost:5173
 
+# AI Providers
 GEMINI_API_KEY=
+GROQ_API_KEY=
 
+# Google Sheets (untuk lead submission)
+GOOGLE_SHEETS_ID=
+GOOGLE_SERVICE_ACCOUNT=./google-service-account.json
+
+# Security
 JWT_SECRET=
 ```
+
+> ⚠️ **Jangan commit file `.env` atau `google-service-account.json` ke repository.** Keduanya sudah di-exclude via `.gitignore`.
 
 ---
 
@@ -298,9 +357,8 @@ JWT_SECRET=
 Fitur berikut masih berada dalam tahap pengembangan:
 
 - Firestore Chat Logging
-- Google Sheets Sync
 - Authentication System
-- Rate Limiting
+- Rate Limiting per IP
 - Analytics Dashboard
 - AI Usage Monitoring
 - Lead Management System
@@ -312,26 +370,29 @@ Fitur berikut masih berada dalam tahap pengembangan:
 ## Frontend
 
 - [x] Landing Page
-- [x] Responsive Design
-- [x] Dark Mode
+- [x] Responsive Design (Mobile-First)
+- [x] Dark Mode (CSS Variables + localStorage)
 - [x] Component System
-- [x] Chatbot UI
-- [x] Animation System
+- [x] Chatbot UI (Floating Widget + Mobile Fullscreen)
+- [x] Animation System (Framer Motion)
+- [x] Contact Form dengan Google Sheets integration
+- [x] React Router Future Flags (v7 ready)
 
 ## Backend
 
 - [x] Express API
-- [x] TypeScript Setup
+- [x] TypeScript Setup (strict mode)
 - [x] Health Endpoint
-- [x] Chat Endpoint
-- [x] Zod Validation
-- [x] Gemini Integration
+- [x] Chat Endpoint dengan Zod validation
+- [x] Contact Endpoint
+- [x] Gemini 3.5 Flash Integration
 - [x] Groq Integration
+- [x] AI Fallback Chain (Gemini → Groq → Mock)
+- [x] Google Sheets Lead Sync
 
 ## Future Development
 
 - [ ] Firestore Logging
-- [ ] Google Sheets Sync
 - [ ] Authentication
 - [ ] Rate Limiting
 - [ ] Analytics Dashboard

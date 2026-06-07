@@ -131,3 +131,12 @@ section {
     padding: 3.5rem 0;
   }
 }
+
+/* ── Chatbot open: lock body scroll & prevent horizontal shift ── */
+body.bodyScrollLock {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+}

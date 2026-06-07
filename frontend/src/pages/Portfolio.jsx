@@ -1,5 +1,3 @@
-"use client";
-
 // 1. Tambahkan forwardRef di impor dari "react"
 import { useState, forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";

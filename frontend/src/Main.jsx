@@ -9,8 +9,12 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
-      {/* Cukup pakai BrowserRouter kosong seperti ini agar berjalan lancar di lokal maupun Render */}
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <App />
       </BrowserRouter>
     </ThemeProvider>

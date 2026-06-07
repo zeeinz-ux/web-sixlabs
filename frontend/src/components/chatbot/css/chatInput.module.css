@@ -1,12 +1,12 @@
 /* ─────────────────────────────────────────
    ChatInput Styles — SixLabs
-   Auto-resize | Enter-to-send | Loading State
+   Semua warna pakai CSS variable supaya dark mode otomatis
    ───────────────────────────────────────── */
 
 .inputBar {
   padding: 0.75rem 1rem;
-  border-top: 1px solid var(--border, #e5e7eb);
-  background: var(--surface, #f8fafc);
+  border-top: 1px solid var(--border-color, rgba(15, 23, 42, 0.08));
+  background: var(--bg-surface-2, #f5f7ff);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -17,16 +17,18 @@
   display: flex;
   align-items: flex-end;
   gap: 0.5rem;
-  background: var(--bg, #ffffff);
-  border: 1px solid var(--border, #e5e7eb);
+  background: var(--bg-surface, #ffffff);
+  border: 1px solid var(--border-input, rgba(15, 23, 42, 0.14));
   border-radius: 0.875rem;
   padding: 0.5rem 0.5rem 0.5rem 0.875rem;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .inputWrapper:focus-within {
-  border-color: var(--primary, #6366f1);
-  box-shadow: 0 0 0 3px var(--primary-soft, rgba(99, 102, 241, 0.15));
+  border-color: var(--accent, #2563eb);
+  box-shadow: 0 0 0 3px var(--accent-glow, rgba(37, 99, 235, 0.15));
 }
 
 .textarea {
@@ -38,14 +40,14 @@
   font-family: inherit;
   font-size: 0.875rem;
   line-height: 1.5;
-  color: var(--text, #111827);
+  color: var(--text-primary, #111827);
   max-height: 120px;
   min-height: 1.5rem;
   padding: 0.25rem 0;
 }
 
 .textarea::placeholder {
-  color: var(--muted, #9ca3af);
+  color: var(--text-muted, #9ca3af);
 }
 
 .textarea:disabled {
@@ -59,18 +61,21 @@
   height: 2.25rem;
   border-radius: 0.625rem;
   border: none;
-  background: var(--primary, #6366f1);
-  color: var(--bg, #ffffff);
+  background: var(--accent, #2563eb);
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background 150ms ease, transform 150ms ease, opacity 150ms ease;
+  transition:
+    background 150ms ease,
+    transform 150ms ease,
+    opacity 150ms ease;
 }
 
 .sendBtn:hover:not(:disabled) {
-  background: var(--primary-hover, #4f46e5);
+  background: var(--accent-hover, #1d4ed8);
   transform: scale(1.05);
 }
 
@@ -81,55 +86,26 @@
 .sendBtn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  background: var(--border, #e5e7eb);
-  color: var(--muted, #9ca3af);
+  background: var(--border-color, #e5e7eb);
+  color: var(--text-muted, #9ca3af);
 }
 
 .sendDisabled {
   opacity: 0.4;
-  background: var(--border, #e5e7eb);
-  color: var(--muted, #9ca3af);
+  background: var(--border-color, #e5e7eb);
+  color: var(--text-muted, #9ca3af);
 }
 
-/* ── Spinner Animation ── */
+/* ── Spinner ── */
 .spinner {
   display: inline-block;
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ── Typing Indicator ── */
-.typingIndicator {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0 0.25rem;
-}
-
-.typingDot {
-  width: 0.375rem;
-  height: 0.375rem;
-  border-radius: 50%;
-  background: var(--muted, #9ca3af);
-  animation: typingBounce 1.4s infinite ease-in-out both;
-}
-
-.typingDot:nth-child(1) { animation-delay: -0.32s; }
-.typingDot:nth-child(2) { animation-delay: -0.16s; }
-.typingDot:nth-child(3) { animation-delay: 0s; }
-
-.typingText {
-  font-size: 0.75rem;
-  color: var(--muted, #9ca3af);
-  margin-left: 0.25rem;
-}
-
-@keyframes typingBounce {
-  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-  40% { transform: scale(1); opacity: 1; }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 640px) {
@@ -137,25 +113,24 @@
     padding: 0.625rem 0.875rem;
   }
 
-  /* Revisi tambahan */
   .inputWrapper {
-    width: 100%;           /* supaya input menempel ke tepi layar */
+    width: 100%;
   }
 
   .textarea {
-    width: 100%;           /* textarea fleksibel fullwidth */
-    font-size: 0.95rem;    /* nyaman dibaca di HP */
+    width: 100%;
+    font-size: 0.95rem;
   }
 
   .sendBtn {
-    width: 2rem;           /* sedikit lebih kecil agar proporsional */
+    width: 2rem;
     height: 2rem;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .sendBtn,
-  .spinner,
-  .typingDot {
+  .spinner {
     animation: none;
     transition: none;
   }

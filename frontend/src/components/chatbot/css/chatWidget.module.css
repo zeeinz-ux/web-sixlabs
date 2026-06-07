@@ -1,16 +1,6 @@
 /* ─────────────────────────────────────────
    ChatWidget Styles — SixLabs
-   Z-Index System | Scroll Lock | 180-250ms Animations
    ───────────────────────────────────────── */
-
-/* ══ Z-Index Layer System ══
-   Pastikan konsisten dengan elemen lain di project:
-   --z-navbar:      100
-   --z-mobile-menu: 200
-   --z-modal:       300
-   --z-toast:       400
-   --z-chatbot:     500   ← chatbot layer
-*/
 
 .widgetContainer {
   position: fixed;
@@ -24,9 +14,6 @@
   font-family: inherit;
 }
 
-/* ── Scroll Lock Mobile ──
-   Class ini ditoggle via JS saat chatbot terbuka.
-   Nanti dipindahkan ke useChatbot.js / ChatbotContext. */
 :global(.bodyScrollLock) {
   overflow: hidden;
   touch-action: none;
@@ -42,11 +29,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--primary, #6366f1);
-  color: var(--bg, #ffffff);
+  background: var(--accent, #2563eb);
+  color: #ffffff;
   box-shadow:
     0 4px 14px rgba(0, 0, 0, 0.15),
-    0 0 0 0 var(--primary-soft, rgba(99, 102, 241, 0.3));
+    0 0 0 0 rgba(37, 99, 235, 0.3);
   transition:
     transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 180ms ease,
@@ -58,7 +45,7 @@
   transform: scale(1.08);
   box-shadow:
     0 6px 20px rgba(0, 0, 0, 0.2),
-    0 0 0 4px var(--primary-soft, rgba(99, 102, 241, 0.2));
+    0 0 0 4px rgba(37, 99, 235, 0.2);
 }
 
 .toggleBtn:active {
@@ -72,28 +59,40 @@
   transition: transform 200ms ease;
 }
 
+/* ── Window Overlay — fullscreen overlay di mobile ── */
 .windowWrapper {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  /* Kunci: cegah horizontal scroll */
+  overflow: hidden;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding: 0.5rem;       /* lebih lega di layar kecil */
-  transform-origin: center bottom;
-  overflow-y: auto;      /* supaya chat bisa discroll di HP */
+  padding: 1rem;
+  pointer-events: none;
+}
 
+.windowWrapper > * {
+  pointer-events: auto;
 }
 
 .windowOpen {
   opacity: 1;
-  transform: scale(1) translateY(0);
   pointer-events: auto;
 }
 
-/* ── Responsive Mobile ── */
+/* ── Desktop: window kecil di pojok kanan bawah ── */
+@media (min-width: 641px) {
+  .windowWrapper {
+    padding: 1rem;
+    background: transparent;
+  }
+}
+
+/* ── Mobile: fullscreen chat ── */
 @media (max-width: 640px) {
   .widgetContainer {
     bottom: 1rem;
@@ -111,15 +110,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding: 1rem;
-    transform-origin: center bottom;
+    padding: 0;
+    overflow: hidden;
+    align-items: stretch;
+    justify-content: stretch;
+    /* Backdrop gelap supaya konten di belakang tidak mengganggu */
+    background: rgba(0, 0, 0, 0.4);
   }
 }
 
-/* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   .toggleBtn,
   .toggleIcon,

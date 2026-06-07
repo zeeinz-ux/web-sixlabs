@@ -1,5 +1,3 @@
-"use client";
-
 import { SITE } from "@/lib/constants";
 import { FooterLinks } from "./FooterLinks";
 import styles from "./footer.module.css";

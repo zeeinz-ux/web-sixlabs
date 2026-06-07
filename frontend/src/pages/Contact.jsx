@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Send, Loader2, CheckCircle2, Mail, MapPin, Clock } from "lucide-react";
 import { motion } from "framer-motion";
