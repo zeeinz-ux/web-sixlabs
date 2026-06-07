@@ -7,8 +7,9 @@ import type {
   AIProviderError,
 } from "../../types";
 
+// 1. URL sudah menggunakan Gemini 3.5 Flash terbaru
 const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent";
 const TIMEOUT_MS = 15000;
 
 export class GeminiProvider implements AIProvider {
@@ -96,18 +97,11 @@ export class GeminiProvider implements AIProvider {
     }
   }
 
+  // 2. Perbaikan struktur payload agar sesuai standar Gemini terbaru
   private buildPayload(params: AIRequestParams): object {
-    const contents = [
-      {
-        role: "user",
-        parts: [
-          {
-            text: SIXLABS_SYSTEM_PROMPT,
-          },
-        ],
-      },
-    ];
+    const contents = [];
 
+    // Masukkan riwayat chat (jika ada) ke dalam contents
     if (params.history && params.history.length > 0) {
       for (const msg of params.history) {
         contents.push({
@@ -117,6 +111,7 @@ export class GeminiProvider implements AIProvider {
       }
     }
 
+    // Masukkan pesan user yang paling baru
     contents.push({
       role: "user",
       parts: [{ text: params.message }],
@@ -124,6 +119,10 @@ export class GeminiProvider implements AIProvider {
 
     return {
       contents,
+      // PENTING: Pindahkan System Prompt ke sini agar AI patuh pada aturan
+      systemInstruction: {
+        parts: [{ text: SIXLABS_SYSTEM_PROMPT }],
+      },
       generationConfig: {
         temperature: 0.7,
         maxOutputTokens: 2048,
